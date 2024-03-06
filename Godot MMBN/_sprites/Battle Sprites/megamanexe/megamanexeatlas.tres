@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cwcbraj6mu6fl"]
+
+[ext_resource type="Texture2D" uid="uid://cdv0g2e0cfbbn" path="res://_sprites/Battle Sprites/megamanexe/MM_EXE6_b_BaseLayer.png" id="1_fvqei"]
+
+[resource]
+atlas = ExtResource("1_fvqei")
+region = Rect2(9, 8, 36, 44)

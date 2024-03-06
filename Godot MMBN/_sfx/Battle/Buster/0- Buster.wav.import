@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://3b3u32iqpony"
+path="res://.godot/imported/0- Buster.wav-73a102cd5a9813b2a39c4068e30dd286.sample"
+
+[deps]
+
+source_file="res://_sfx/Battle/Buster/0- Buster.wav"
+dest_files=["res://.godot/imported/0- Buster.wav-73a102cd5a9813b2a39c4068e30dd286.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

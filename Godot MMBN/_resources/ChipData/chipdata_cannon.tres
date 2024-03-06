@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://m2fcjba6qwuh"]
+
+[ext_resource type="Texture2D" uid="uid://stvcki2b3in1" path="res://_sprites/Battle Sprites/chips/battlesprites_chips_cannon.png" id="1_bhuys"]
+[ext_resource type="AudioStream" uid="uid://btf6cuukehs" path="res://_sfx/Battle/Cannon/Cannon HQ.ogg" id="1_np6h7"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Chips/ChipDataResource.cs" id="1_ur31y"]
+[ext_resource type="AudioStream" uid="uid://dclx2xts4ya4h" path="res://_sfx/Battle/_general/ExplosionImpact HQ.ogg" id="2_afmj7"]
+
+[resource]
+script = ExtResource("1_ur31y")
+_attack = 40
+_chipBattleTexture = ExtResource("1_bhuys")
+_damageType = 0
+_audioStreams = Array[AudioStream]([ExtResource("1_np6h7"), ExtResource("2_afmj7")])
+_audioOffsets = PackedFloat32Array(0, 0)

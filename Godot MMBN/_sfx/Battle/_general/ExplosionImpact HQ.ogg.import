@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dclx2xts4ya4h"
+path="res://.godot/imported/ExplosionImpact HQ.ogg-90c21c63e7051c16ac767d4c9bbeaa2c.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/_general/ExplosionImpact HQ.ogg"
+dest_files=["res://.godot/imported/ExplosionImpact HQ.ogg-90c21c63e7051c16ac767d4c9bbeaa2c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

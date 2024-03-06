@@ -1,0 +1,64 @@
+[gd_scene load_steps=13 format=3 uid="uid://fykbgegvcc0h"]
+
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/BattleEntity.cs" id="1_1rl5f"]
+[ext_resource type="Texture2D" uid="uid://dwvlvng4gfpkm" path="res://_sprites/Battle Sprites/mettaur/mettaur_attack.png" id="2_a2ho8"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/HealthController.cs" id="3_n4dio"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/MovementControllers/GridMovementController.cs" id="4_kaqjh"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/EntityStateController.cs" id="5_jnrfm"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/IdleState.cs" id="6_lqtqe"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/TrackPlayerState.cs" id="6_orudg"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/Animation/EntityAnimationController.cs" id="8_fnaog"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/AttackState.cs" id="8_m7yow"]
+
+[sub_resource type="Animation" id="Animation_5s3xy"]
+resource_name = "Attack"
+length = 1.03334
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Attack Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.0333333, 0.05, 0.1, 0.233333, 0.3, 0.45, 0.5, 0.533333, 0.566667, 0.6, 0.633333, 0.7, 1, 1.03333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_of0yq"]
+resource_name = "Idle"
+length = 0.0166683
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Idle Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sovo1"]
+_data = {
+"Attack": SubResource("Animation_5s3xy"),
+"Idle": SubResource("Animation_of0yq")
+}
+
+[node name="Mettaur" type="Node2D"]
+z_index = 1
+script = ExtResource("1_1rl5f")
+_battleEntityID = "_mettaur"
+_entityType = 2
+_healthController = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("3_n4dio"),"_health":null)
+
+_movementController = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("4_kaqjh"))
+
+_stateMachine = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("5_jnrfm"))
+
+_animationController = Object(Node2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"script":ExtResource("8_fnaog"),"_animationID":PackedStringArray("Idle", "Attack"),"_defaultAnimationID":"Idle","_animationPlayer":Object(AnimationPlayer,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","root_node":NodePath("../Animati

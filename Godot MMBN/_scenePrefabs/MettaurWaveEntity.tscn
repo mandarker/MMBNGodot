@@ -1,0 +1,97 @@
+[gd_scene load_steps=12 format=3 uid="uid://163xqb12r7dn"]
+
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/BattleEntity.cs" id="1_dvp1r"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/MovementControllers/GridMovementController.cs" id="2_8i3jm"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/HealthController.cs" id="2_j143j"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/Animation/EntityAnimationController.cs" id="3_a3xhf"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/EntityStateController.cs" id="3_ca1he"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/AttackState.cs" id="4_hdy6y"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/AttackBehaviours/SpawnMettaurWaveAttackBehaviour.cs" id="6_666xh"]
+[ext_resource type="Texture2D" uid="uid://dionj7ykfemwf" path="res://_sprites/Battle Sprites/_entities/mettaur_attack/mettaur_attack_atlas.png" id="7_ljkks"]
+[ext_resource type="AudioStream" uid="uid://cow7fgisqfxg5" path="res://_sfx/Battle/Mettaur/MettWave HQ.ogg" id="9_1yh4m"]
+
+[sub_resource type="Animation" id="Animation_khjtu"]
+resource_name = "Attack"
+length = 0.416668
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSprites/Attack Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.15, 0.233333, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qveju"]
+_data = {
+"Attack": SubResource("Animation_khjtu")
+}
+
+[node name="MettaurWaveEntity" type="Node2D" node_paths=PackedStringArray("_healthController", "_movementController", "_stateMachine", "_animationController")]
+z_index = 1
+script = ExtResource("1_dvp1r")
+_battleEntityID = "_mettaurWave"
+_healthController = NodePath("HealthController")
+_movementController = NodePath("MovementController")
+_stateMachine = NodePath("EntityStateController")
+_animationController = NodePath("EntityAnimationController")
+_interactable = null
+_entityType = 2
+
+[node name="HealthController" type="Node" parent="." node_paths=PackedStringArray("_onDamageDealtModifiers")]
+script = ExtResource("2_j143j")
+_health = 100000
+_invincibleOnDamage = null
+_onDamageDealtModifiers = []
+
+[node name="MovementController" type="Node" parent="."]
+script = ExtResource("2_8i3jm")
+
+[node name="EntityStateController" type="Node" parent="." node_paths=PackedStringArray("_states", "_currentEntity")]
+script = ExtResource("3_ca1he")
+_states = [NodePath("AttackState")]
+_currentEntity = NodePath("..")
+
+[node name="AttackState" type="Node" parent="EntityStateController" node_paths=PackedStringArray("_attackBehaviours", "_nextState")]
+script = ExtResource("4_hdy6y")
+_attackBehaviours = [NodePath("SpawnMettaurWaveAttackBehaviour")]
+_nextState = NodePath(".")
+
+[node name="SpawnMettaurWaveAttackBehaviour" type="Node" parent="EntityStateController/AttackState" node_paths=PackedStringArray("_animatorController", "_currentEntity")]
+script = ExtResource("6_666xh")
+_removeEntity = true
+_attackSpawnDelay = 0.3
+_attackDamage = 20
+_animatorController = NodePath("../../../EntityAnimationController")
+_currentEntity = NodePath("../../..")
+
+[node name="EntityAnimationController" type="Node2D" parent="." node_paths=PackedStringArray("_animationSprites", "_animationPlayer", "_healthController")]
+script = ExtResource("3_a3xhf")
+_animationID = PackedStringArray("Attack")
+_animationSprites = [NodePath("AnimationSprites/Attack Sprite")]
+_animationPlayer = NodePath("AnimationPlayer")
+_healthController = NodePath("../HealthController")
+_defaultAnimationID = "Attack"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EntityAnimationController"]
+libraries = {
+"": SubResource("AnimationLibrary_qveju")
+}
+
+[node name="AnimationSprites" type="Node2D" parent="EntityAnimationController"]
+
+[node name="Attack Sprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
+position = Vector2(5, -18)
+texture = ExtResource("7_ljkks")
+flip_h = true
+hframes = 5
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_1yh4m")
+volume_db = 1.0
+autoplay = true

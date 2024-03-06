@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://dj81kwcwr3tct"]
+
+[ext_resource type="Script" path="res://_scripts/VFX/AnimatedVFXController.cs" id="1_mkhm7"]
+[ext_resource type="Texture2D" uid="uid://c6tprxquusukk" path="res://_sprites/Battle Sprites/effects/effects_bustercharge_atlas.png" id="2_jufqd"]
+
+[sub_resource type="Animation" id="Animation_nrreu"]
+resource_name = "BusterChargeBlue"
+length = 0.350002
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BusterChargeSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_7yg5a"]
+resource_name = "BusterChargePurple"
+length = 0.400002
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BusterChargeSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x1v2o"]
+_data = {
+"BusterChargeBlue": SubResource("Animation_nrreu"),
+"BusterChargePurple": SubResource("Animation_7yg5a")
+}
+
+[node name="BusterCharge" type="Node2D" node_paths=PackedStringArray("_animationPlayer")]
+script = ExtResource("1_mkhm7")
+_animationIDs = PackedStringArray("BusterChargeBlue")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x1v2o")
+}
+
+[node name="BusterChargeSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_jufqd")
+hframes = 19

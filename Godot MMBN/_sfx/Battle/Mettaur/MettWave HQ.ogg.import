@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cow7fgisqfxg5"
+path="res://.godot/imported/MettWave HQ.ogg-8fccbcd808d46f7459907799aea2b9ad.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/Mettaur/MettWave HQ.ogg"
+dest_files=["res://.godot/imported/MettWave HQ.ogg-8fccbcd808d46f7459907799aea2b9ad.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

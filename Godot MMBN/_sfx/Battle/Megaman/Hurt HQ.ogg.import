@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dhwlr3x5cvamv"
+path="res://.godot/imported/Hurt HQ.ogg-985f9752c32e20655d959aa2df864ce2.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/Megaman/Hurt HQ.ogg"
+dest_files=["res://.godot/imported/Hurt HQ.ogg-985f9752c32e20655d959aa2df864ce2.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

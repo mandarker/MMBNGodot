@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bstcwc23qwvok"
+path="res://.godot/imported/explode HQ.ogg-cefcfc934fccc89adfe30884f45d0df0.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/_general/explode HQ.ogg"
+dest_files=["res://.godot/imported/explode HQ.ogg-cefcfc934fccc89adfe30884f45d0df0.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

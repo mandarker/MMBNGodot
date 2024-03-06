@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmehoes54dmju"]
+
+[ext_resource type="Script" path="res://_scripts/VFX/AnimatedVFXController.cs" id="1_f17mq"]
+[ext_resource type="Texture2D" uid="uid://blyrd3qt7l80" path="res://_sprites/Battle Sprites/effects/effects_busterhitcharged_atlas.png" id="2_s2ni7"]
+
+[sub_resource type="Animation" id="Animation_s0ghl"]
+resource_name = "BusterHitCharged"
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BusterHitChargedSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.0333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 0, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yl7e4"]
+_data = {
+"BusterHitCharged": SubResource("Animation_s0ghl")
+}
+
+[node name="BusterHitCharged" type="Node2D"]
+script = ExtResource("1_f17mq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yl7e4")
+}
+
+[node name="BusterHitChargedSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_s2ni7")
+hframes = 6
+frame = 1

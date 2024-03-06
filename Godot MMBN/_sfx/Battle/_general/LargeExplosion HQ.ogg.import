@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c4qgl0kdseux0"
+path="res://.godot/imported/LargeExplosion HQ.ogg-4197658249540507eb9d2bdce72e527c.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/_general/LargeExplosion HQ.ogg"
+dest_files=["res://.godot/imported/LargeExplosion HQ.ogg-4197658249540507eb9d2bdce72e527c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

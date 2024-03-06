@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bdmthjdu5t3yk"]
+
+[ext_resource type="Texture2D" uid="uid://dwvlvng4gfpkm" path="res://_sprites/Battle Sprites/mettaur/mettaur_attack.png" id="1_8f58u"]
+
+[resource]
+atlas = ExtResource("1_8f58u")
+region = Rect2(0, 0, 831, 53)

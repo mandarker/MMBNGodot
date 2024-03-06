@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://v4qvvx8eloxs"]
+
+[ext_resource type="Script" path="res://_scripts/VFX/AnimatedVFXController.cs" id="1_8oteo"]
+[ext_resource type="Texture2D" uid="uid://bhgxpt6ggc2n8" path="res://_sprites/Battle Sprites/effects/effects_busterhit_atlas.png" id="1_fov1u"]
+
+[sub_resource type="Animation" id="Animation_1jygb"]
+resource_name = "BusterHit"
+length = 0.0666683
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BusterHitSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.0333333, 0.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hvr1i"]
+_data = {
+"BusterHit": SubResource("Animation_1jygb")
+}
+
+[node name="BusterHit" type="Node2D" node_paths=PackedStringArray("_animationPlayer")]
+script = ExtResource("1_8oteo")
+_animationIDs = PackedStringArray("BusterHit")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hvr1i")
+}
+
+[node name="BusterHitSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_fov1u")
+hframes = 4
+frame = 3

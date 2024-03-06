@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dx03464nuj657"]
+
+[ext_resource type="Script" path="res://_scripts/VFX/AnimatedVFXController.cs" id="1_efchg"]
+[ext_resource type="Texture2D" uid="uid://b3jehomgn5thk" path="res://_sprites/Battle Sprites/effects/effects_cannonshot_atlas.png" id="2_28cci"]
+
+[sub_resource type="Animation" id="Animation_qjprf"]
+resource_name = "CannonShot"
+length = 0.450002
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CannonShotSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.166667, 0.183333, 0.2, 0.216667, 0.25, 0.283333, 0.316667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dt4qy"]
+_data = {
+"CannonShot": SubResource("Animation_qjprf")
+}
+
+[node name="CannonShot" type="Node2D" node_paths=PackedStringArray("_animationPlayer")]
+script = ExtResource("1_efchg")
+_animationIDs = PackedStringArray("CannonShot")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dt4qy")
+}
+
+[node name="CannonShotSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_28cci")
+hframes = 9

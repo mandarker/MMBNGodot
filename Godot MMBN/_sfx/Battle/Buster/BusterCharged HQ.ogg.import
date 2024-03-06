@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cwr0cwynje3sp"
+path="res://.godot/imported/BusterCharged HQ.ogg-71aaf06c80201e705cf27294e3f12ce1.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/Buster/BusterCharged HQ.ogg"
+dest_files=["res://.godot/imported/BusterCharged HQ.ogg-71aaf06c80201e705cf27294e3f12ce1.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

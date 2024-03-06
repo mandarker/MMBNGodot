@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Play in Editor",
+            "type": "godot-mono",
+            "request": "attach",
+            "address": "localhost",
+            "port": 6007
+        },
+      {
+        "name": "Play",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "E:\\Programs\\Godot_v4.1.1-stable_mono_win64\\Godot_v4.1.1-stable_mono_win64.exe",
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "stopAtEntry": false,
+      }
+    ]
+  }
