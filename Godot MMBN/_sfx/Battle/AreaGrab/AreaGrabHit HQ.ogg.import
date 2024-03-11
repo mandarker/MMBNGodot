@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dnu2uv74s2p2f"
+path="res://.godot/imported/AreaGrabHit HQ.ogg-49f79ad0d59e5111aea270058d2c27fe.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/AreaGrab/AreaGrabHit HQ.ogg"
+dest_files=["res://.godot/imported/AreaGrabHit HQ.ogg-49f79ad0d59e5111aea270058d2c27fe.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

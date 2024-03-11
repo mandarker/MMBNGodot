@@ -166,6 +166,7 @@ script = ExtResource("11_sx2og")
 _entityHealthController = NodePath("../HealthController")
 _digitSprites = [NodePath("Digit1"), NodePath("Digit2"), NodePath("Digit3"), NodePath("Digit4")]
 _damageColor = Color(1, 0.486275, 0.419608, 1)
+_digitSpread = null
 
 [node name="Digit1" type="Sprite2D" parent="HealthDisplayer"]
 material = SubResource("ShaderMaterial_mb78y")

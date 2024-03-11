@@ -12,6 +12,7 @@ namespace MMBN.VFX
 		public static readonly string BusterChargeID = "BusterCharge";
 
         public static readonly string MEGAMAN_CANNONSHOT_ID = "CannonShot";
+        public static readonly string MEGAMAN_SWORDSLASH_ID = "SwordSlash";
 
 		public static AnimatedVFXController GenerateVFX(string vfxID, Vector2 position)
 		{

@@ -70,7 +70,10 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 				false
 			);
 
-			_playerController.OnBButtonPressed += OnBButtonPressed;
+            // set the proper animation
+            _playerAnimationController.PlayAnimation(AnimationID.IDLE_ANIMATION_ID);
+
+            _playerController.OnBButtonPressed += OnBButtonPressed;
 			_playerController.OnBButton += OnBButton;
 			_playerController.OnBButtonReleased += OnBButtonReleased;
 			_playerController.OnAButtonPressed += OnAButtonPressed;

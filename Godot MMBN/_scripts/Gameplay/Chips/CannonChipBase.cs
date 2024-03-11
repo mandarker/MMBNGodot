@@ -79,7 +79,6 @@ namespace MMBN.Gameplay.Chips
 					{
 						if (entities[j].Interactable)
 						{
-							// 1 damage for now
 							entities[j].HealthController.DealDamage(cannonAttackData);
 
                             // play sound effect of the cannon hit

@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://casukhna2t4kr"]
+
+[ext_resource type="Script" path="res://_scripts/VFX/AnimatedVFXController.cs" id="1_ted5n"]
+[ext_resource type="Texture2D" uid="uid://kq0etcaa51w5" path="res://_sprites/Battle Sprites/effects/Swords/effects_swords_swordslash_atlas.png" id="2_y6hsf"]
+
+[sub_resource type="Animation" id="Animation_2nkqy"]
+resource_name = "SwordSlash"
+length = 0.233335
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.116667, 0.183333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5at2e"]
+_data = {
+"SwordSlash": SubResource("Animation_2nkqy")
+}
+
+[node name="SwordSlash" type="Node2D" node_paths=PackedStringArray("_animationPlayer")]
+script = ExtResource("1_ted5n")
+_animationIDs = PackedStringArray("SwordSlash")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5at2e")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_y6hsf")
+hframes = 3

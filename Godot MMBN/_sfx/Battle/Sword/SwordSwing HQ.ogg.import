@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b5613dw6x2dly"
+path="res://.godot/imported/SwordSwing HQ.ogg-bbb18056d620f7428a83f258fac4bd0b.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/Sword/SwordSwing HQ.ogg"
+dest_files=["res://.godot/imported/SwordSwing HQ.ogg-bbb18056d620f7428a83f258fac4bd0b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

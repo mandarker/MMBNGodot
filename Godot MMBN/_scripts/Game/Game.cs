@@ -82,12 +82,15 @@ namespace MMBN{
 
 			CannonChipBase cannonChip = new CannonChipBase();
 			cannonChip.Init(GD.Load<ChipDataResource>("res://_resources/ChipData/chipdata_cannon.tres"));
+            SwordChipBase swordChip = new SwordChipBase();
+            swordChip.Init(GD.Load<ChipDataResource>("res://_resources/ChipData/chipdata_sword.tres"));
+
+            BattleSession.ChipsController.EnqueueChip(cannonChip);
+            BattleSession.ChipsController.EnqueueChip(swordChip);
+            BattleSession.ChipsController.EnqueueChip(cannonChip);
 			BattleSession.ChipsController.EnqueueChip(cannonChip);
-			BattleSession.ChipsController.EnqueueChip(cannonChip);
-			BattleSession.ChipsController.EnqueueChip(cannonChip);
-			BattleSession.ChipsController.EnqueueChip(cannonChip);
-			BattleSession.ChipsController.EnqueueChip(cannonChip);
-			BattleSession.ChipsController.DisplayChipsOnPlayer();
+            BattleSession.ChipsController.EnqueueChip(swordChip);
+            BattleSession.ChipsController.DisplayChipsOnPlayer();
 
             _playerController.OnStartButtonPressed += () => _isPaused = !_isPaused;
             _isPaused = false;
