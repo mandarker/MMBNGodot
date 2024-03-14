@@ -58,9 +58,8 @@ namespace MMBN.Gameplay.Chips
             Game.Instance.SFXManager.PlaySFX(_chipDataResource.AudioStreams[SWORD_CHIP_SFX_ID]);
 
             Vector2 spawnPosition = _playerEntity.Position + new Vector2(SWORDSLASH_VFX_OFFSET_X, SWORDSLASH_VFX_OFFSET_Y);
-            AnimatedVFXController _swordSlashVFXController = VFXGeneratorHelper.GenerateVFX(VFXGeneratorHelper.MEGAMAN_SWORDSLASH_ID, spawnPosition);
+            AnimatedVFXController _swordSlashVFXController = VFXGeneratorHelper.GenerateBattleVFX(VFXGeneratorHelper.MEGAMAN_SWORDSLASH_ID, spawnPosition);
 
-            Game.Instance.AddChild(_swordSlashVFXController);
             _swordSlashVFXController.ZIndex = _playerEntity.ZIndex;
             _swordSlashVFXController.OnVFXFinished += _swordSlashVFXController.Free;
 

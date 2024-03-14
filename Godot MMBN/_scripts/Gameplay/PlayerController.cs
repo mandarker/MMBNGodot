@@ -22,6 +22,23 @@ public partial class PlayerController : Node
 	private bool _prevAButtonState = false;
     private bool _prevStartButtonState = false;
 
+    private bool _aButtonDisabled = false;
+    private bool _bButtonDisabled = false;
+
+    private const Key B_KEY = Key.Down;
+    private const Key A_KEY = Key.Right;
+    private const Key START_KEY = Key.F;
+
+    public void SetAButtonDisabled(bool disabled)
+    {
+        _aButtonDisabled = disabled;
+    }
+
+    public void SetBButtonDisabled(bool disabled)
+    {
+        _bButtonDisabled = disabled;
+    }
+
     public override void _Input(InputEvent @event)
     {
 		if (@event.IsActionPressed("movement_left"))
@@ -63,49 +80,61 @@ public partial class PlayerController : Node
 
     public override void _Process(double delta)
     {
-        if (Input.IsKeyPressed(Key.Down))
-		{
-			if (_prevBButtonState == false)
-			{
-				OnBButtonPressed?.Invoke();
-				_prevBButtonState = true;
-			}	
-			else
-			{
-				OnBButton?.Invoke();
-			}
-		}
-		else
-		{
-			if (_prevBButtonState == true)
-			{
-				OnBButtonReleased?.Invoke();
-				_prevBButtonState = false;
-			}
-		}
+        if (!_bButtonDisabled)
+        {
+            if (Input.IsKeyPressed(B_KEY))
+		    {
+			    if (_prevBButtonState == false)
+			    {
+				    OnBButtonPressed?.Invoke();
+				    _prevBButtonState = true;
+			    }	
+			    else
+			    {
+				    OnBButton?.Invoke();
+			    }
+		    }
+		    else
+		    {
+                if (_prevBButtonState == true)
+			    {
+				    OnBButtonReleased?.Invoke();
+				    _prevBButtonState = false;
+			    }
+		    }
+        }
 
-		if (Input.IsKeyPressed(Key.Right))
-		{
-			if (_prevAButtonState == false)
-			{
-				OnAButtonPressed?.Invoke();
-				_prevAButtonState = true;
-			}	
-			else
-			{
+        if (!_aButtonDisabled)
+        {
+		    if (Input.IsKeyPressed(A_KEY))
+		    {
+                if (_aButtonDisabled)
+                    return;
+
+			    if (_prevAButtonState == false)
+			    {
+				    OnAButtonPressed?.Invoke();
+				    _prevAButtonState = true;
+			    }	
+			    else
+			    {
 				
-			}
-		}
-		else
-		{
-			if (_prevAButtonState == true)
-			{
-				OnAButtonReleased?.Invoke();
-				_prevAButtonState = false;
-			}
-		}
+			    }
+		    }
+		    else
+            {
+                if (_aButtonDisabled)
+                    return;
+            
+                if (_prevAButtonState == true)
+			    {
+				    OnAButtonReleased?.Invoke();
+				    _prevAButtonState = false;
+			    }
+		    }
+        }
 
-        if (Input.IsKeyPressed(Key.F))
+        if (Input.IsKeyPressed(START_KEY))
         {
             if (_prevStartButtonState == false)
             {

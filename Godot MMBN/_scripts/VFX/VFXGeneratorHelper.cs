@@ -21,5 +21,15 @@ namespace MMBN.VFX
 			vfxController.Init(position);
 			return vfxController;	
 		}
+
+        public static AnimatedVFXController GenerateBattleVFX(string vfxID, Vector2 position)
+        {
+            AnimatedVFXController vfxController = GenerateVFX(vfxID, position);
+
+            Game.Instance.AddChild(vfxController);
+            Game.Instance.BattleSession.SubscribeVFXController(vfxController);
+
+            return vfxController;
+        }
 	}
 }

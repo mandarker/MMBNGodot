@@ -68,9 +68,9 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 		private void DelayedSpawnExplosion()
 		{
 			Vector2 spawnPosition = _currentEntity.Position + new Vector2(GD.RandRange(-10, 10), GD.RandRange(-20, 0));
-			AnimatedVFXController vfxController = VFXGeneratorHelper.GenerateVFX(VFXGeneratorHelper.ExplosionID, spawnPosition);
+			AnimatedVFXController vfxController = VFXGeneratorHelper.GenerateBattleVFX(VFXGeneratorHelper.ExplosionID, spawnPosition);
+
 			vfxController.ZIndex = _currentEntity.ZIndex;
-			Game.Instance.AddChild(vfxController);
 
 			_explosionVFX.Add(vfxController);
 			vfxController.OnVFXFinished += () => {

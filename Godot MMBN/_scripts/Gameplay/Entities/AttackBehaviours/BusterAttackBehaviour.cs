@@ -98,9 +98,9 @@ namespace MMBN.Gameplay.Entities.AttackBehaviours
 							entityFound = true;
 
 							Vector2 spawnPosition = entities[j].Position + new Vector2(GD.RandRange(-10, 10), GD.RandRange(-20, -30));
-							AnimatedVFXController vfxController = VFXGeneratorHelper.GenerateVFX(VFXGeneratorHelper.BusterHitID, spawnPosition);
-							Game.Instance.AddChild(vfxController);
-							vfxController.ZIndex = entities[j].ZIndex;
+							AnimatedVFXController vfxController = VFXGeneratorHelper.GenerateBattleVFX(VFXGeneratorHelper.BusterHitID, spawnPosition);
+							
+                            vfxController.ZIndex = entities[j].ZIndex;
 							vfxController.OnVFXFinished += vfxController.Free;
 
                             // play the sound

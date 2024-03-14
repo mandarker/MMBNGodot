@@ -36,9 +36,8 @@ namespace MMBN.Gameplay.Chips
             );
 
             Vector2 spawnPosition = playerEntity.Position + new Vector2(CANNON_VFX_OFFSET_X, CANNON_VFX_OFFSET_Y);
-            _cannonVFXController = VFXGeneratorHelper.GenerateVFX(VFXGeneratorHelper.MEGAMAN_CANNONSHOT_ID, spawnPosition);
+            _cannonVFXController = VFXGeneratorHelper.GenerateBattleVFX(VFXGeneratorHelper.MEGAMAN_CANNONSHOT_ID, spawnPosition);
 
-            Game.Instance.AddChild(_cannonVFXController);
             _cannonVFXController.ZIndex = playerEntity.ZIndex;
             _cannonVFXController.OnVFXFinished += _cannonVFXController.Free;
         }
@@ -85,9 +84,8 @@ namespace MMBN.Gameplay.Chips
                             Game.Instance.SFXManager.PlaySFX(_chipDataResource.AudioStreams[CANNON_CHIP_HIT_SFX_ID]);
 
                             Vector2 spawnPosition = entities[j].Position + new Vector2(GD.RandRange(-10, 10), GD.RandRange(-20, -30));
-                            AnimatedVFXController vfxController = VFXGeneratorHelper.GenerateVFX(VFXGeneratorHelper.ExplosionID, spawnPosition);
+                            AnimatedVFXController vfxController = VFXGeneratorHelper.GenerateBattleVFX(VFXGeneratorHelper.ExplosionID, spawnPosition);
 
-                            Game.Instance.AddChild(vfxController);
                             vfxController.ZIndex = entities[j].ZIndex;
                             vfxController.OnVFXFinished += vfxController.Free;
 

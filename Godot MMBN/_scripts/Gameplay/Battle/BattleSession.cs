@@ -4,6 +4,8 @@ using MMBN.Gameplay.Entities;
 using System.Collections.Generic;
 using MMBN.Gameplay.Entities.EntityGroupedBehaviours;
 using MMBN.Gameplay.Chips;
+using MMBN.VFX;
+using System.Diagnostics;
 
 namespace MMBN.Gameplay.Battle
 {
@@ -28,7 +30,13 @@ namespace MMBN.Gameplay.Battle
         private BattleEntity _playerBattleEntity;
         public BattleEntity PlayerBattleEntity { get { return _playerBattleEntity; }}
 
-		public BattleSession(BattleGrid grid, BattleEntity playerEntity, BattleEntity[] entities, BattleWinCondition winCondition)
+        private bool _isPaused = false;
+        public bool IsPaused { get { return _isPaused; } }
+        public Action<bool> OnPaused;
+
+        private HashSet<AnimatedVFXController> _animatedVFXControllers;
+
+        public BattleSession(BattleGrid grid, BattleEntity playerEntity, BattleEntity[] entities, BattleWinCondition winCondition)
 		{
 			_winCondition = winCondition;
 
@@ -66,6 +74,8 @@ namespace MMBN.Gameplay.Battle
 					entity.HealthController.OnHealthReachedZero += () => OnEnemyDied?.Invoke();
 				}
 			}
+
+            _animatedVFXControllers = new HashSet<AnimatedVFXController>();
 
 			OnEnemyDied += CheckIfAllEnemiesDied;
 		}
@@ -113,10 +123,6 @@ namespace MMBN.Gameplay.Battle
 			_battleGrid.SetHighlightAt(gridPosition, false);
 		}
 
-        private bool _isPaused = false;
-        public bool IsPaused { get { return _isPaused; } }
-        public Action<bool> OnPaused;
-
         public void SetPaused(bool paused)
         {
             _isPaused = paused;
@@ -127,7 +133,25 @@ namespace MMBN.Gameplay.Battle
                 entity.AnimationController.SetAnimationPaused(_isPaused);
             }
 
+            // pause all vfx
+            foreach (var vfxController in _animatedVFXControllers)
+            {
+                if (paused)
+                    vfxController.Pause();
+                else
+                    vfxController.Unpause();
+            }
+
+            GD.Print(_animatedVFXControllers.Count);
+
             OnPaused?.Invoke(paused);
+        }
+
+        public void SubscribeVFXController(AnimatedVFXController animatedVFXController)
+        {
+            _animatedVFXControllers.Add(animatedVFXController);
+
+            animatedVFXController.OnVFXFinished += () => _animatedVFXControllers.Remove(animatedVFXController);
         }
 
 		public void Update(float deltaTime)
