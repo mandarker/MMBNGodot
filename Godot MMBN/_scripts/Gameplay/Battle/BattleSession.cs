@@ -113,8 +113,28 @@ namespace MMBN.Gameplay.Battle
 			_battleGrid.SetHighlightAt(gridPosition, false);
 		}
 
+        private bool _isPaused = false;
+        public bool IsPaused { get { return _isPaused; } }
+        public Action<bool> OnPaused;
+
+        public void SetPaused(bool paused)
+        {
+            _isPaused = paused;
+
+            // pause all entity animations
+            foreach (var entity in _entities)
+            {
+                entity.AnimationController.SetAnimationPaused(_isPaused);
+            }
+
+            OnPaused?.Invoke(paused);
+        }
+
 		public void Update(float deltaTime)
 		{
+            if (_isPaused)
+                return;
+
 			for (int i = 0; i < _queuedAddEntities.Count; ++i)
 			{
 				_entities.Add(_queuedAddEntities[i]);

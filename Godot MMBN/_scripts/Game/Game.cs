@@ -29,8 +29,6 @@ namespace MMBN{
 			Init();
 		}
 
-        private bool _isPaused;
-
 		private void Init()
 		{
 			if (Instance != null && Instance != this)
@@ -92,17 +90,13 @@ namespace MMBN{
             BattleSession.ChipsController.EnqueueChip(swordChip);
             BattleSession.ChipsController.DisplayChipsOnPlayer();
 
-            _playerController.OnStartButtonPressed += () => _isPaused = !_isPaused;
-            _isPaused = false;
+            _playerController.OnStartButtonPressed += () => BattleSession.SetPaused(!BattleSession.IsPaused);
 		}
 
         public override void _Process(double delta)
         {
-            if (!_isPaused)
-            {
-                SFXManager.Update();
-			    BattleSession.Update((float) delta);
-            }
+            SFXManager.Update();
+			BattleSession.Update((float) delta);
         }
     }
 }

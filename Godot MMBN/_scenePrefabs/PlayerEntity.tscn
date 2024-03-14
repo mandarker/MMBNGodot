@@ -241,7 +241,6 @@ _playerEntity = NodePath("../..")
 _chargingAudioStreamPlayer = NodePath("../../SFX/BusterChargingAudioStreamPlayer")
 _chargedAudioStreamPlayer = NodePath("../../SFX/BusterChargedAudioStreamPlayer")
 _movementSpeed = 0.25
-_chargeVFXDelay = null
 
 [node name="PlayerBusterShotState" type="Node" parent="EntityStateController" node_paths=PackedStringArray("_attackBehaviours", "_nextState")]
 script = ExtResource("7_oxq6r")
@@ -251,8 +250,6 @@ _nextState = NodePath("../PlayerMovementState")
 [node name="BusterAttackBehaviour" type="Node" parent="EntityStateController/PlayerBusterShotState" node_paths=PackedStringArray("_busterAttackAudioStreamPlayer", "_busterHitAudioStreamPlayer", "_animatorController", "_currentEntity")]
 script = ExtResource("8_8lxsi")
 _attackSpawnDelay = 0.05
-_busterAttackPower = null
-_busterAttackChargeMultiplier = null
 _busterAttackAudioStreamPlayer = NodePath("../../../SFX/BusterAttackAudioStreamPlayer")
 _busterHitAudioStreamPlayer = NodePath("../../../SFX/BusterHitAudioStreamPlayer")
 _animatorController = NodePath("../../../EntityAnimationController")
