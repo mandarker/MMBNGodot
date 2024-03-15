@@ -65,6 +65,8 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 				() => {
 					_chargeVFXController = VFXGeneratorHelper.GenerateVFX(VFXGeneratorHelper.BusterChargeID, new Vector2(0, -20));
 					_playerEntity.AddChild(_chargeVFXController);
+                    Game.Instance.BattleSession.SubscribeVFXController(_chargeVFXController);
+
 					_chargeVFXSpawned = true;
 				},
 				false
@@ -100,7 +102,9 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
                 _chargeVFXController?.Free();
             }
 
-			_playerController.OnBButtonPressed -= OnBButtonPressed;
+            Game.Instance.BattleSession.UnsubscribeVFXController(_chargeVFXController);
+
+            _playerController.OnBButtonPressed -= OnBButtonPressed;
 			_playerController.OnBButton -= OnBButton;
 			_playerController.OnBButtonReleased -= OnBButtonReleased;
 			_playerController.OnAButtonPressed -= OnAButtonPressed;

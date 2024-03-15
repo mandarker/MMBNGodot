@@ -142,8 +142,6 @@ namespace MMBN.Gameplay.Battle
                     vfxController.Unpause();
             }
 
-            GD.Print(_animatedVFXControllers.Count);
-
             OnPaused?.Invoke(paused);
         }
 
@@ -152,6 +150,14 @@ namespace MMBN.Gameplay.Battle
             _animatedVFXControllers.Add(animatedVFXController);
 
             animatedVFXController.OnVFXFinished += () => _animatedVFXControllers.Remove(animatedVFXController);
+        }
+
+        public void UnsubscribeVFXController(AnimatedVFXController animatedVFXController)
+        {
+            if (_animatedVFXControllers.Contains(animatedVFXController))
+            {
+                _animatedVFXControllers.Remove(animatedVFXController);
+            }
         }
 
 		public void Update(float deltaTime)
