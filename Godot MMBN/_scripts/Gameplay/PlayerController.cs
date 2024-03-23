@@ -39,6 +39,18 @@ public partial class PlayerController : Node
         _bButtonDisabled = disabled;
     }
 
+    public void ClearInputs()
+    {
+        OnAButtonPressed = null;
+        OnAButtonReleased = null;
+
+        OnBButtonPressed = null;
+        OnBButton = null;
+        OnBButtonReleased = null;
+
+        OnStartButtonPressed = null;
+    }
+
     public override void _Input(InputEvent @event)
     {
 		if (@event.IsActionPressed("movement_left"))

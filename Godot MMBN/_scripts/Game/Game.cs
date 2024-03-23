@@ -17,6 +17,7 @@ namespace MMBN{
 		public GlobalVariables GlobalVariables { get { return _globalVariables; } }
 
 		private PlayerController _playerController;
+        public PlayerController PlayerController { get { return _playerController; } }
 
 		public BattleSession BattleSession;
 
