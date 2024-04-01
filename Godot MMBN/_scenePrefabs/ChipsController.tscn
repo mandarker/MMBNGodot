@@ -1,28 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://5nvds38d5qfc"]
+[gd_scene load_steps=4 format=3 uid="uid://5nvds38d5qfc"]
 
 [ext_resource type="Script" path="res://_scripts/Gameplay/Chips/ChipsController.cs" id="1_xr7im"]
 [ext_resource type="Texture2D" uid="uid://stvcki2b3in1" path="res://_sprites/Battle Sprites/chips/battlesprites_chips_cannon.png" id="2_idivm"]
+[ext_resource type="Texture2D" uid="uid://qibu2u6ma40l" path="res://_sprites/Battle Sprites/chips/battlesprites_chipbg.png" id="2_rsnpk"]
 
-[node name="ChipsController" type="Node2D" node_paths=PackedStringArray("_chipNodes")]
+[node name="ChipsController" type="Node2D" node_paths=PackedStringArray("_chipNodes", "_chipTextureNodes")]
 position = Vector2(7, -51)
 script = ExtResource("1_xr7im")
-_chipNodes = [NodePath("Chip1"), NodePath("Chip2"), NodePath("Chip3"), NodePath("Chip4"), NodePath("Chip5")]
+_chipNodes = [NodePath("Chip1bg"), NodePath("Chip2bg"), NodePath("Chip3bg"), NodePath("Chip4bg"), NodePath("Chip5bg")]
+_chipTextureNodes = [NodePath("Chip1bg/Chip1"), NodePath("Chip2bg/Chip2"), NodePath("Chip3bg/Chip3"), NodePath("Chip4bg/Chip4"), NodePath("Chip5bg/Chip5")]
 
-[node name="Chip5" type="Sprite2D" parent="."]
+[node name="Chip5bg" type="Sprite2D" parent="."]
 position = Vector2(-8, -8)
+texture = ExtResource("2_rsnpk")
+
+[node name="Chip5" type="Sprite2D" parent="Chip5bg"]
 texture = ExtResource("2_idivm")
 
-[node name="Chip4" type="Sprite2D" parent="."]
+[node name="Chip4bg" type="Sprite2D" parent="."]
 position = Vector2(-6, -6)
+texture = ExtResource("2_rsnpk")
+
+[node name="Chip4" type="Sprite2D" parent="Chip4bg"]
 texture = ExtResource("2_idivm")
 
-[node name="Chip3" type="Sprite2D" parent="."]
+[node name="Chip3bg" type="Sprite2D" parent="."]
 position = Vector2(-4, -4)
+texture = ExtResource("2_rsnpk")
+
+[node name="Chip3" type="Sprite2D" parent="Chip3bg"]
 texture = ExtResource("2_idivm")
 
-[node name="Chip2" type="Sprite2D" parent="."]
+[node name="Chip2bg" type="Sprite2D" parent="."]
 position = Vector2(-2, -2)
+texture = ExtResource("2_rsnpk")
+
+[node name="Chip2" type="Sprite2D" parent="Chip2bg"]
 texture = ExtResource("2_idivm")
 
-[node name="Chip1" type="Sprite2D" parent="."]
+[node name="Chip1bg" type="Sprite2D" parent="."]
+texture = ExtResource("2_rsnpk")
+
+[node name="Chip1" type="Sprite2D" parent="Chip1bg"]
 texture = ExtResource("2_idivm")

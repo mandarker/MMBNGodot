@@ -10,6 +10,8 @@ namespace MMBN.Gameplay.Chips
 		private List<ChipBase> _chipQueue;
 		[Export]
 		private Sprite2D[] _chipNodes;
+        [Export]
+        private Sprite2D[] _chipTextureNodes;
 
 		public void Init(BattleEntity playerEntity)
 		{
@@ -54,7 +56,7 @@ namespace MMBN.Gameplay.Chips
 				if (i < _chipQueue.Count)
 				{
 					_chipNodes[i].Visible = true;
-					_chipNodes[i].Texture = _chipQueue[i].ChipDataResource.ChipBattleTexture;
+					_chipTextureNodes[i].Texture = _chipQueue[i].ChipDataResource.ChipBattleTexture;
 				}
 				else
 				{
