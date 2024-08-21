@@ -88,6 +88,7 @@ _entityType = 2
 [node name="HealthController" type="Node" parent="." node_paths=PackedStringArray("_onDamageDealtModifiers")]
 script = ExtResource("3_n4dio")
 _health = 100
+_invincibleOnDamage = null
 _onDamageDealtModifiers = []
 
 [node name="MovementController" type="Node" parent="."]
@@ -117,6 +118,7 @@ _nextState = NodePath("../IdleState")
 
 [node name="SpawnMettaurWaveAttackBehaviour" type="Node" parent="EntityStateController/AttackState" node_paths=PackedStringArray("_animatorController", "_currentEntity")]
 script = ExtResource("8_s4w20")
+_removeEntity = null
 _attackSpawnDelay = 0.6
 _attackDamage = 20
 _animatorController = NodePath("../../../EntityAnimationController")

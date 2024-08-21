@@ -97,8 +97,10 @@ namespace MMBN{
         private void SetBattleSessionPaused(bool paused)
         {
             BattleSession.SetPaused(paused);
+            /*
             _playerController.SetAButtonDisabled(paused);
             _playerController.SetBButtonDisabled(paused);
+            */
         }
 
         public override void _Process(double delta)

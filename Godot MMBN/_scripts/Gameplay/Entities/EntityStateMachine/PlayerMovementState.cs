@@ -197,6 +197,9 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 
 		public void OnBButtonReleased()
 		{
+            if (_isPaused)
+                return;
+
 			if (_chargeVFXSpawned)
 			{
 				_chargeVFXController.Free();
@@ -218,6 +221,9 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 		{
 			if (Game.Instance.BattleSession.ChipsController.PeekChip() != null)
 			{
+                if (_isPaused)
+                    return;
+
 				if (_chargeVFXSpawned)
 				{
 					_chargeVFXController?.Free();

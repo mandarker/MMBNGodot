@@ -241,6 +241,7 @@ _playerEntity = NodePath("../..")
 _chargingAudioStreamPlayer = NodePath("../../SFX/BusterChargingAudioStreamPlayer")
 _chargedAudioStreamPlayer = NodePath("../../SFX/BusterChargedAudioStreamPlayer")
 _movementSpeed = 0.25
+_chargeVFXDelay = 0.1
 
 [node name="PlayerBusterShotState" type="Node" parent="EntityStateController" node_paths=PackedStringArray("_attackBehaviours", "_nextState")]
 script = ExtResource("7_oxq6r")

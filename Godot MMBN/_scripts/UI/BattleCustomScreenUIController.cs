@@ -1,15 +1,29 @@
 using Godot;
 using System;
 
-public partial class BattleCustomScreenUIController : Node
+namespace MMBN.UI
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+    public partial class BattleCustomScreenUIController : Node
+    {
+        [Export]
+        private Sprite2D[] chipSprites;
+        [Export]
+        private Sprite2D[] loadedChipSprites;
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	    public void Init()
+        {
+            // turn off all sprites in the list of loaded sprites
+            foreach (Sprite2D loadedChipSprite in loadedChipSprites) 
+            {
+                loadedChipSprite.Visible = false;
+            }
+        }
+
+        public void ShowUI()
+        {
+            Game.Instance.BattleSession.SetPaused(true);
+
+
+        }
+    }
 }
