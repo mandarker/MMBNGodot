@@ -77,6 +77,8 @@ namespace MMBN.Gameplay.Battle
 
             _animatedVFXControllers = new HashSet<AnimatedVFXController>();
 
+            Game.Instance.BattleChipsManager.ResetAvailableBattleChips();
+
 			OnEnemyDied += CheckIfAllEnemiesDied;
 		}
 

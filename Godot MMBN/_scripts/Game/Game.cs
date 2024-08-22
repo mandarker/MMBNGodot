@@ -7,14 +7,17 @@ using MMBN.SFX;
 using System;
 using System.Diagnostics;
 
-namespace MMBN{
-	public partial class Game : Node
-	{
-		public static Game Instance { get; private set; }
+namespace MMBN {
+    public partial class Game : Node
+    {
+        public static Game Instance { get; private set; }
 
-		private GlobalVariables _globalVariables;
+        private GlobalVariables _globalVariables;
 
-		public GlobalVariables GlobalVariables { get { return _globalVariables; } }
+        public GlobalVariables GlobalVariables { get { return _globalVariables; } }
+
+        private BattleChipsManager _battleChipsManager;
+        public BattleChipsManager BattleChipsManager { get { return _battleChipsManager; } }
 
 		private PlayerController _playerController;
         public PlayerController PlayerController { get { return _playerController; } }
@@ -79,17 +82,15 @@ namespace MMBN{
 				null
 			);
 
-			CannonChipBase cannonChip = new CannonChipBase();
-			cannonChip.Init(GD.Load<ChipDataResource>("res://_resources/ChipData/chipdata_cannon.tres"));
-            SwordChipBase swordChip = new SwordChipBase();
-            swordChip.Init(GD.Load<ChipDataResource>("res://_resources/ChipData/chipdata_sword.tres"));
 
+            /*
             BattleSession.ChipsController.EnqueueChip(cannonChip);
             BattleSession.ChipsController.EnqueueChip(swordChip);
             BattleSession.ChipsController.EnqueueChip(cannonChip);
 			BattleSession.ChipsController.EnqueueChip(cannonChip);
             BattleSession.ChipsController.EnqueueChip(swordChip);
             BattleSession.ChipsController.DisplayChipsOnPlayer();
+            */
 
             _playerController.OnStartButtonPressed += () => SetBattleSessionPaused(!BattleSession.IsPaused);
 		}
