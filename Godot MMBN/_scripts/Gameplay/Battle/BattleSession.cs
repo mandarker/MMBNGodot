@@ -6,13 +6,17 @@ using MMBN.Gameplay.Entities.EntityGroupedBehaviours;
 using MMBN.Gameplay.Chips;
 using MMBN.VFX;
 using System.Diagnostics;
+using MMBN.UI;
 
 namespace MMBN.Gameplay.Battle
 {
-	public sealed class BattleSession
+	public partial class BattleSession : Node2D
 	{
 		private BattleWinCondition _winCondition;
+
+        [Export]
 		private BattleGrid _battleGrid;
+        public BattleGrid BattleGrid { get { return _battleGrid; } }
 
 		public Action OnEnemyDied;
 
@@ -30,57 +34,86 @@ namespace MMBN.Gameplay.Battle
         private BattleEntity _playerBattleEntity;
         public BattleEntity PlayerBattleEntity { get { return _playerBattleEntity; }}
 
+        [Export]
+        private BattleCustomScreenUIController _customScreenUIController;
+
         private bool _isPaused = false;
         public bool IsPaused { get { return _isPaused; } }
         public Action<bool> OnPaused;
 
         private HashSet<AnimatedVFXController> _animatedVFXControllers;
 
-        public BattleSession(BattleGrid grid, BattleEntity playerEntity, BattleEntity[] entities, BattleWinCondition winCondition)
-		{
-			_winCondition = winCondition;
+        public void Init(BattleWinCondition winCondition, Camera2D camera)
+        {
+            _battleGrid.Init();
 
-			_battleGrid = grid;
-			grid.Init();
-			_entities = new List<BattleEntity>();
+            // temporary, we will need to put this somewhere
+            _playerBattleEntity = BattleEntityGeneratorHelper.GenerateEntity(BattleEntityGeneratorHelper.PlayerEntityID);
+            AddChild(_playerBattleEntity);
+            _playerBattleEntity.Init(_battleGrid, new Vector2(1, 1));
+
+            BattleEntity enemyEntity = BattleEntityGeneratorHelper.GenerateEntity(BattleEntityGeneratorHelper.MettaurEntityID);
+            AddChild(enemyEntity);
+            enemyEntity.Init(_battleGrid, new Vector2(3, 0));
+
+            BattleEntity enemyEntity2 = BattleEntityGeneratorHelper.GenerateEntity(BattleEntityGeneratorHelper.MettaurEntityID);
+            AddChild(enemyEntity2);
+            enemyEntity2.Init(_battleGrid, new Vector2(4, 1));
+
+            BattleEntity enemyEntity3 = BattleEntityGeneratorHelper.GenerateEntity(BattleEntityGeneratorHelper.MettaurEntityID);
+            AddChild(enemyEntity3);
+            enemyEntity3.Init(_battleGrid, new Vector2(5, 2));
+
+            BattleEntity[] enemyEntities = new BattleEntity[3];
+            enemyEntities[0] = enemyEntity;
+            enemyEntities[1] = enemyEntity2;
+            enemyEntities[2] = enemyEntity3;
+
+            _winCondition = winCondition;
+            
+            _entities = new List<BattleEntity>();
 			_queuedAddEntities = new List<BattleEntity>();
 			_queuedRemoveEntities = new List<BattleEntity>();
-            _playerBattleEntity = playerEntity;
 
 			_mettaurGroupedBehaviour = new MettaurGroupedBehaviour();
 
 			// spawn the player and enemies in the appropriate spot
-			_battleGrid.OccupyTile(playerEntity);
-			_entities.Add(playerEntity);
+			_entities.Add(_playerBattleEntity);
 			_enemyCount = 0;
 
-			if (_chipsController == null)
+            foreach (BattleEntity entity in enemyEntities)
+            {
+                _entities.Add(entity);
+
+                _mettaurGroupedBehaviour.SubmitMettaur(entity);
+
+                if (entity.EntityType == BattleEntity.BattleEntityType.ENEMY)
+                {
+                    ++_enemyCount;
+                    entity.HealthController.OnHealthReachedZero += () => OnEnemyDied?.Invoke();
+                }
+            }
+
+            if (_chipsController == null)
 			{
 				PackedScene chipsControllerPackedScene = GD.Load<PackedScene>("res://_scenePrefabs/ChipsController.tscn");
 				_chipsController = chipsControllerPackedScene.Instantiate<ChipsController>();
-				_chipsController.Init(playerEntity);
-			}
-
-			foreach (BattleEntity entity in entities)
-			{
-				_battleGrid.OccupyTile(entity);
-				_entities.Add(entity);
-
-				_mettaurGroupedBehaviour.SubmitMettaur(entity);
-
-				if (entity.EntityType == BattleEntity.BattleEntityType.ENEMY)
-				{
-					++_enemyCount;
-					entity.HealthController.OnHealthReachedZero += () => OnEnemyDied?.Invoke();
-				}
+				_chipsController.Init(_playerBattleEntity);
+                _chipsController.DisplayChipsOnPlayer();
 			}
 
             _animatedVFXControllers = new HashSet<AnimatedVFXController>();
 
+            // set up chips
             Game.Instance.BattleChipsManager.ResetAvailableBattleChips();
 
-			OnEnemyDied += CheckIfAllEnemiesDied;
-		}
+            // set up custom screen
+            _customScreenUIController.Initialize();
+            _customScreenUIController.ResetUI();
+
+
+            OnEnemyDied += CheckIfAllEnemiesDied;
+        }
 
 		public void CheckIfAllEnemiesDied()
 		{

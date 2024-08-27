@@ -8,7 +8,7 @@ using System;
 using System.Diagnostics;
 
 namespace MMBN {
-    public partial class Game : Node
+    public partial class Game : Node2D
     {
         public static Game Instance { get; private set; }
 
@@ -19,13 +19,19 @@ namespace MMBN {
         private BattleChipsManager _battleChipsManager;
         public BattleChipsManager BattleChipsManager { get { return _battleChipsManager; } }
 
+        [Export]
 		private PlayerController _playerController;
         public PlayerController PlayerController { get { return _playerController; } }
 
-		public BattleSession BattleSession;
+        [Export]
+		private BattleSession _battleSession;
+        public BattleSession BattleSession { get { return _battleSession; } }
 
         private SFXManager _sfxManager;
         public SFXManager SFXManager { get { return _sfxManager; } }
+
+        [Export]
+        private Camera2D _camera2D;
 
 		public override void _Ready()
 		{
@@ -47,40 +53,11 @@ namespace MMBN {
 			_globalVariables = new GlobalVariables();
 			_globalVariables.SubmitFloat(GlobalVariableIDs.BUSTER_CHARGETIME_ID, 1.5f);
 
+            _battleChipsManager = new BattleChipsManager();
+
             _sfxManager = new SFXManager(this);
 
-			BattleGrid battleGrid = GetNode<BattleGrid>("/root/MainScene/BattleGrid");
-			battleGrid.Init();
-
-			BattleEntity playerBattleEntity = BattleEntityGeneratorHelper.GenerateEntity(BattleEntityGeneratorHelper.PlayerEntityID);
-			AddChild(playerBattleEntity);
-			playerBattleEntity.Init(battleGrid, new Vector2(1, 1));
-			
-			BattleEntity enemyEntity = BattleEntityGeneratorHelper.GenerateEntity(BattleEntityGeneratorHelper.MettaurEntityID);
-			AddChild(enemyEntity);
-			enemyEntity.Init(battleGrid, new Vector2(3, 0));
-
-			BattleEntity enemyEntity2 = BattleEntityGeneratorHelper.GenerateEntity(BattleEntityGeneratorHelper.MettaurEntityID);
-			AddChild(enemyEntity2);
-			enemyEntity2.Init(battleGrid, new Vector2(4, 1));
-
-			BattleEntity enemyEntity3 = BattleEntityGeneratorHelper.GenerateEntity(BattleEntityGeneratorHelper.MettaurEntityID);
-			AddChild(enemyEntity3);
-			enemyEntity3.Init(battleGrid, new Vector2(5, 2));
-
-			_playerController = GetNode<PlayerController>("/root/MainScene/PlayerController");
-
-			BattleEntity[] enemyEntities = new BattleEntity[3];
-			enemyEntities[0] = enemyEntity;
-			enemyEntities[1] = enemyEntity2;
-			enemyEntities[2] = enemyEntity3;
-
-			BattleSession = new BattleSession(
-				battleGrid,
-				playerBattleEntity,
-				enemyEntities,
-				null
-			);
+            _battleSession.Init(null, _camera2D);
 
 
             /*

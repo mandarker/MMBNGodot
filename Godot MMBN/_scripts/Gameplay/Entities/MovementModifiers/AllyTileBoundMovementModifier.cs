@@ -16,7 +16,7 @@ namespace MMBN.Gameplay.Entities
         public override void _Ready()
         {
             base._Ready();
-			_battleGrid = GetNode<BattleGrid>("/root/MainScene/BattleGrid");
+            _battleGrid = Game.Instance.BattleSession.BattleGrid;
         }
 
         public override bool ApplyModifier(Vector2 movementVector, out Vector2 outputMovement)

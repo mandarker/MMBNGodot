@@ -48,7 +48,7 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 
         public override void BeginState()
         {
-			_playerController = GetNode<PlayerController>("/root/MainScene/PlayerController");
+            _playerController = Game.Instance.PlayerController;
 
             _chargeBeginDelayedEventHandler = new DelayedEventHandler(
                 _chargeVFXDelay,
@@ -80,7 +80,12 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 			_playerController.OnBButtonReleased += OnBButtonReleased;
 			_playerController.OnAButtonPressed += OnAButtonPressed;
 
-			_directionalInputEventHandler.Reset();
+            _directionalInputEventHandler = new ThresholdedDelayedEventHandler(
+            0,
+            _movementSpeed,
+            () => DelayedMovementUpdate()
+            );
+            _directionalInputEventHandler.Reset();
 
 			_chargeTime = 0;
         }
@@ -174,15 +179,6 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 			}
 
 			_movementController.UpdateMovement(deltaTime);
-        }
-
-        public override void _Ready()
-        {
-            _directionalInputEventHandler = new ThresholdedDelayedEventHandler(
-			0, 
-			_movementSpeed, 
-			() => DelayedMovementUpdate()
-			);
         }
 
 		public void OnBButtonPressed()

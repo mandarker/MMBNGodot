@@ -78,8 +78,7 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 
         public override void _Ready()
         {
-            // oh god this is so bad
-            _battleGrid = GetNode<BattleGrid>("/root/MainScene/BattleGrid");
+            _battleGrid = Game.Instance.BattleSession.BattleGrid;
 
             _delayedMovementHandler = new DelayedEventHandler(
                 MOVEMENT_SPEED,

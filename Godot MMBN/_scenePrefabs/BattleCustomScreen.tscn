@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://b36rtqsf5gmfp"]
+
+[ext_resource type="Texture2D" uid="uid://cl81spqg6r6br" path="res://_sprites/UI/battle_customscreen.png" id="1_b3110"]
+[ext_resource type="Script" path="res://_scripts/UI/BattleCustomScreenUIController.cs" id="2_2fuk8"]
+[ext_resource type="Texture2D" uid="uid://stvcki2b3in1" path="res://_sprites/Battle Sprites/chips/battlesprites_chips_cannon.png" id="3_qarah"]
+[ext_resource type="Texture2D" uid="uid://be0b7yfsr88ph" path="res://_sprites/UI/custom_chip_under_lettering.png" id="4_as2jk"]
+
+[node name="BattleCustomScreen" type="Sprite2D" node_paths=PackedStringArray("customChipSprites", "customChipCodeSprites", "loadedChipSprites")]
+z_index = 10
+position = Vector2(-60, 1)
+texture = ExtResource("1_b3110")
+script = ExtResource("2_2fuk8")
+customChipSprites = [NodePath("CustomSprite1"), NodePath("CustomSprite2"), NodePath("CustomSprite3"), NodePath("CustomSprite4"), NodePath("CustomSprite5")]
+customChipCodeSprites = [NodePath("CustomSprite1/CustomCodeSprite1"), NodePath("CustomSprite2/CustomCodeSprite2"), NodePath("CustomSprite3/CustomCodeSprite3"), NodePath("CustomSprite4/CustomCodeSprite4"), NodePath("CustomSprite5/CustomCodeSprite5")]
+loadedChipSprites = [NodePath("SelectedSprite1"), NodePath("SelectedSprite2"), NodePath("SelectedSprite3"), NodePath("SelectedSprite4"), NodePath("SelectedSprite5")]
+
+[node name="CustomSprite1" type="Sprite2D" parent="."]
+position = Vector2(-44, 32)
+texture = ExtResource("3_qarah")
+
+[node name="CustomCodeSprite1" type="Sprite2D" parent="CustomSprite1"]
+texture = ExtResource("4_as2jk")
+offset = Vector2(0, 11)
+hframes = 27
+
+[node name="CustomSprite2" type="Sprite2D" parent="."]
+position = Vector2(-28, 32)
+texture = ExtResource("3_qarah")
+
+[node name="CustomCodeSprite2" type="Sprite2D" parent="CustomSprite2"]
+texture = ExtResource("4_as2jk")
+offset = Vector2(0, 11)
+hframes = 27
+
+[node name="CustomSprite3" type="Sprite2D" parent="."]
+position = Vector2(-12, 32)
+texture = ExtResource("3_qarah")
+
+[node name="CustomCodeSprite3" type="Sprite2D" parent="CustomSprite3"]
+texture = ExtResource("4_as2jk")
+offset = Vector2(0, 11)
+hframes = 27
+
+[node name="CustomSprite4" type="Sprite2D" parent="."]
+position = Vector2(4, 32)
+texture = ExtResource("3_qarah")
+
+[node name="CustomCodeSprite4" type="Sprite2D" parent="CustomSprite4"]
+texture = ExtResource("4_as2jk")
+offset = Vector2(0, 11)
+hframes = 27
+
+[node name="CustomSprite5" type="Sprite2D" parent="."]
+position = Vector2(20, 32)
+texture = ExtResource("3_qarah")
+
+[node name="CustomCodeSprite5" type="Sprite2D" parent="CustomSprite5"]
+texture = ExtResource("4_as2jk")
+offset = Vector2(0, 11)
+hframes = 27
+
+[node name="SelectedSprite1" type="Sprite2D" parent="."]
+position = Vector2(44, -48)
+texture = ExtResource("3_qarah")
+
+[node name="SelectedSprite2" type="Sprite2D" parent="."]
+position = Vector2(44, -32)
+texture = ExtResource("3_qarah")
+
+[node name="SelectedSprite3" type="Sprite2D" parent="."]
+position = Vector2(44, -16)
+texture = ExtResource("3_qarah")
+
+[node name="SelectedSprite4" type="Sprite2D" parent="."]
+position = Vector2(44, 0)
+texture = ExtResource("3_qarah")
+
+[node name="SelectedSprite5" type="Sprite2D" parent="."]
+position = Vector2(44, 16)
+texture = ExtResource("3_qarah")

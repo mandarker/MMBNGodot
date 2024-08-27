@@ -7,9 +7,13 @@ namespace MMBN.UI
 {
     public partial class BattleCustomScreenUIController : Node2D
     {
+
         [Export]
         private Sprite2D[] customChipSprites;
-        
+
+        [Export]
+        private Sprite2D[] customChipCodeSprites;
+
         [Export]
         private Sprite2D[] loadedChipSprites;
 
@@ -18,7 +22,7 @@ namespace MMBN.UI
 
         private const int MAXIMUM_CUSTOM_CHIPS = 5;
 
-        public void Init()
+        public void Initialize()
         {
             _customChips = new List<BattleChipsManager.BattleChipStruct>();
             _loadedChips = new List<BattleChipsManager.BattleChipStruct>();
@@ -44,6 +48,15 @@ namespace MMBN.UI
                     {
                         customChipSprites[i].Visible = true;
                         customChipSprites[i].Texture = _customChips[i].ChipBase.ChipDataResource.ChipBattleTexture;
+                        if (_customChips[i].Code == '*')
+                        {
+                            // the very last frame
+                            customChipCodeSprites[i].Frame = 26;
+                        }
+                        else
+                        {
+                            customChipCodeSprites[i].Frame = _customChips[i].Code - 'A';
+                        }
                     }
                     else
                     {
