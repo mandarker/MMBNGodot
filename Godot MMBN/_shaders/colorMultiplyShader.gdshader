@@ -7,9 +7,15 @@ uniform bool _white;
 uniform bool _clear;
 uniform bool _flash;
 uniform float _tintStrength;
+uniform float _pixelationStrength;
 
 void fragment() {
-	COLOR = texture(TEXTURE, UV);
+	// i love magic numbers
+	vec2 modifiedUV = UV * vec2(1.0f/((_pixelationStrength + 0.001f)/100.0f));
+	modifiedUV = vec2(float(int(modifiedUV.x)), float(int(modifiedUV.y)));
+	modifiedUV = modifiedUV * vec2((_pixelationStrength + 0.001f)/100.0f);
+	
+	COLOR = texture(TEXTURE, modifiedUV);
 	COLOR = COLOR * _col;
 	
 	COLOR = vec4(mix(COLOR.rgb, _colTint.rgb, _tintStrength), COLOR.a);

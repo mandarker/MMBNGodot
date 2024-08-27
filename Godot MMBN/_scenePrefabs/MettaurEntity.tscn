@@ -53,6 +53,7 @@ shader_parameter/_white = null
 shader_parameter/_clear = null
 shader_parameter/_flash = false
 shader_parameter/_tintStrength = 0.0
+shader_parameter/_pixelationStrength = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e3jgq"]
 resource_local_to_scene = true
@@ -63,6 +64,7 @@ shader_parameter/_white = null
 shader_parameter/_clear = null
 shader_parameter/_flash = null
 shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mb78y"]
 resource_local_to_scene = true
@@ -73,6 +75,7 @@ shader_parameter/_white = false
 shader_parameter/_clear = false
 shader_parameter/_flash = null
 shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
 
 [node name="Mettaur" type="Node2D" node_paths=PackedStringArray("_healthController", "_movementController", "_stateMachine", "_animationController")]
 z_index = 1
