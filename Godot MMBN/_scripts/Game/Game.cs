@@ -68,18 +68,7 @@ namespace MMBN {
             BattleSession.ChipsController.EnqueueChip(swordChip);
             BattleSession.ChipsController.DisplayChipsOnPlayer();
             */
-
-            _playerController.OnStartButtonPressed += () => SetBattleSessionPaused(!BattleSession.IsPaused);
 		}
-
-        private void SetBattleSessionPaused(bool paused)
-        {
-            BattleSession.SetPaused(paused);
-            /*
-            _playerController.SetAButtonDisabled(paused);
-            _playerController.SetBButtonDisabled(paused);
-            */
-        }
 
         public override void _Process(double delta)
         {

@@ -116,11 +116,11 @@ namespace MMBN.Gameplay.Entities.Animation
 
 		public void SetSpriteClearDuration(float duration)
 		{
-			SetSpriteClear(true);
+			SetSpriteTransparency(0);
 
 			_spriteClearResetEventHandler = new DelayedEventHandler(
 				duration,
-				() => SetSpriteClear(false),
+				() => SetSpriteTransparency(1),
 				false
 			);
 		}
@@ -145,11 +145,11 @@ namespace MMBN.Gameplay.Entities.Animation
             }
 		}
 
-		public void SetSpriteClear(bool clear)
+		public void SetSpriteTransparency(float transparency)
 		{
             foreach (CanvasItem sprite in _animationSprites)
             {
-                ((ShaderMaterial)sprite.Material).SetShaderParameter("_clear", clear);
+                ((ShaderMaterial)sprite.Material).SetShaderParameter("_transparency", transparency);
             }
 		}
 
@@ -158,6 +158,14 @@ namespace MMBN.Gameplay.Entities.Animation
             foreach (CanvasItem sprite in _animationSprites)
             {
                 ((ShaderMaterial)sprite.Material).SetShaderParameter("_flash", flash);
+            }
+        }
+
+        public void SetSpritePixelation(float pixelation)
+        {
+            foreach (CanvasItem sprite in _animationSprites)
+            {
+                ((ShaderMaterial)sprite.Material).SetShaderParameter("_pixelationStrength", pixelation);
             }
         }
     }

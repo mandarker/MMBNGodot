@@ -11,7 +11,12 @@ namespace MMBN.Utility
         [Export]
         private GeneralState _currentState;
 
-        public override void _Process(double delta)
+        public override void _Ready()
+        {
+            _currentState.StartState();
+        }
+
+        public void Update(float delta)
         {
             if (_isPaused)
                 return;
@@ -29,7 +34,7 @@ namespace MMBN.Utility
             _isPaused = false;
         }
 
-        public void UpdateState(GeneralState state)
+        public void SetState(GeneralState state)
         {
             _currentState.EndState();
             _currentState = state;

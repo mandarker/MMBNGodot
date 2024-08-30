@@ -6,10 +6,10 @@ namespace MMBN.Utility
     public abstract partial class GeneralState : Node
     {
         [Export]
-        private GeneralStateMachine _parentStateMachine;
+        protected GeneralStateMachine _parentStateMachine;
 
         public abstract void StartState();
-        public abstract void UpdateState(double deltaTime);
+        public abstract void UpdateState(float deltaTime);
         public abstract void EndState();
     }
 }

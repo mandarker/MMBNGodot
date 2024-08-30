@@ -4,7 +4,7 @@ uniform vec4 _col;
 uniform vec4 _colTint;
 
 uniform bool _white;
-uniform bool _clear;
+uniform float _transparency = 1;
 uniform bool _flash;
 uniform float _tintStrength;
 uniform float _pixelationStrength;
@@ -31,8 +31,5 @@ void fragment() {
 		COLOR = vec4(COLOR.r, COLOR.g, COLOR.b, COLOR.a * round(lerp));	
 	}
 	
-	if (_clear)
-	{
-		COLOR = vec4(COLOR.r, COLOR.g, COLOR.b, 0);
-	}
+	COLOR = vec4(COLOR.r, COLOR.g, COLOR.b, COLOR.a * _transparency);
 }

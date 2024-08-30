@@ -46,9 +46,8 @@ namespace MMBN.Utility
             {
                 if (!_endedInvoked)
                 {
-                    OnInterpolationEndedAction?.Invoke();
-
                     _endedInvoked = true;
+                    OnInterpolationEndedAction?.Invoke();
                 }
             }
         }

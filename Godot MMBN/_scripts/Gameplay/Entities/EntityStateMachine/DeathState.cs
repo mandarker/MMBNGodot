@@ -50,7 +50,7 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 					() => {
 						if (index == explosions - 1)
 						{
-							_animationController.SetSpriteClear(true);
+							_animationController.SetSpriteTransparency(0);
 						}
 
 						DelayedSpawnExplosion();

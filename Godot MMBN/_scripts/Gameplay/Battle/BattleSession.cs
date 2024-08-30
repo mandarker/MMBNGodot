@@ -7,12 +7,17 @@ using MMBN.Gameplay.Chips;
 using MMBN.VFX;
 using System.Diagnostics;
 using MMBN.UI;
+using System.Linq;
+using MMBN.Utility;
 
 namespace MMBN.Gameplay.Battle
 {
 	public partial class BattleSession : Node2D
 	{
 		private BattleWinCondition _winCondition;
+
+        [Export]
+        private GeneralStateMachine _battleStateMachine;
 
         [Export]
 		private BattleGrid _battleGrid;
@@ -37,9 +42,6 @@ namespace MMBN.Gameplay.Battle
         [Export]
         private BattleCustomScreenUIController _customScreenUIController;
 
-        private bool _isPaused = false;
-        public bool IsPaused { get { return _isPaused; } }
-        public Action<bool> OnPaused;
 
         private HashSet<AnimatedVFXController> _animatedVFXControllers;
 
@@ -85,7 +87,8 @@ namespace MMBN.Gameplay.Battle
             {
                 _entities.Add(entity);
 
-                _mettaurGroupedBehaviour.SubmitMettaur(entity);
+                if (entity.BattleEntityID.Equals("_mettaur"))
+                    _mettaurGroupedBehaviour.SubmitMettaur(entity);
 
                 if (entity.EntityType == BattleEntity.BattleEntityType.ENEMY)
                 {
@@ -136,6 +139,29 @@ namespace MMBN.Gameplay.Battle
 			_queuedRemoveEntities.Add(entity);
 		}
 
+        public List<BattleEntity> GetEnemyEntities()
+        {
+            List<BattleEntity> entitiesCopy = _entities.ToList();
+            entitiesCopy.Remove(_playerBattleEntity);
+
+            return entitiesCopy;
+        }
+
+        public List<BattleEntity> GetAllEntities()
+        {
+            return _entities;
+        }
+
+        public List<BattleEntity> GetQueuedAddedEntities()
+        {
+            return _queuedAddEntities;
+        }
+
+        public List<BattleEntity> GetQueuedRemovedEntities()
+        {
+            return _queuedRemoveEntities;
+        }
+
 		public List<BattleEntity> GetEntitiesAtPosition(Vector2 tilePosition)
 		{
 			List<BattleEntity> entities = new List<BattleEntity>();
@@ -158,28 +184,6 @@ namespace MMBN.Gameplay.Battle
 			_battleGrid.SetHighlightAt(gridPosition, false);
 		}
 
-        public void SetPaused(bool paused)
-        {
-            _isPaused = paused;
-
-            // pause all entity animations
-            foreach (var entity in _entities)
-            {
-                entity.AnimationController.SetAnimationPaused(_isPaused);
-            }
-
-            // pause all vfx
-            foreach (var vfxController in _animatedVFXControllers)
-            {
-                if (paused)
-                    vfxController.Pause();
-                else
-                    vfxController.Unpause();
-            }
-
-            OnPaused?.Invoke(paused);
-        }
-
         public void SubscribeVFXController(AnimatedVFXController animatedVFXController)
         {
             _animatedVFXControllers.Add(animatedVFXController);
@@ -195,30 +199,25 @@ namespace MMBN.Gameplay.Battle
             }
         }
 
+        public void PauseVFXControllers()
+        {
+            foreach (var vfxController in _animatedVFXControllers)
+            {
+                vfxController.Pause();
+            }
+        }
+
+        public void UnpauseVFXControllers()
+        {
+            foreach (var vfxController in _animatedVFXControllers)
+            {
+                vfxController.Unpause();
+            }
+        }
+
 		public void Update(float deltaTime)
 		{
-            if (_isPaused)
-                return;
-
-			for (int i = 0; i < _queuedAddEntities.Count; ++i)
-			{
-				_entities.Add(_queuedAddEntities[i]);
-				Game.Instance.AddChild(_queuedAddEntities[i]);
-			}
-			_queuedAddEntities.Clear();
-
-			for (int i = 0; i < _entities.Count; ++i)
-			{
-				_entities[i].StateMachine.UpdateStateMachine(deltaTime);
-				_entities[i].AnimationController.Update(deltaTime);
-			}
-
-			for (int i = 0; i < _queuedRemoveEntities.Count; ++i)
-			{
-				_entities.Remove(_queuedRemoveEntities[i]);
-				_battleGrid.UnoccupyTile(_queuedRemoveEntities[i]);
-			}
-			_queuedRemoveEntities.Clear();
+            _battleStateMachine.Update(deltaTime);
 		}
 	}
 }

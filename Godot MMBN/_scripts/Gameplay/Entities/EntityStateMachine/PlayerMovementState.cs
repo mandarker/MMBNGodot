@@ -48,7 +48,7 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 
         public override void BeginState()
         {
-            _playerController = Game.Instance.PlayerController;
+            SubscribeInputs();
 
             _chargeBeginDelayedEventHandler = new DelayedEventHandler(
                 _chargeVFXDelay,
@@ -75,11 +75,6 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
             // set the proper animation
             _playerAnimationController.PlayAnimation(AnimationID.IDLE_ANIMATION_ID);
 
-            _playerController.OnBButtonPressed += OnBButtonPressed;
-			_playerController.OnBButton += OnBButton;
-			_playerController.OnBButtonReleased += OnBButtonReleased;
-			_playerController.OnAButtonPressed += OnAButtonPressed;
-
             _directionalInputEventHandler = new ThresholdedDelayedEventHandler(
             0,
             _movementSpeed,
@@ -90,14 +85,28 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 			_chargeTime = 0;
         }
 
+        private void SubscribeInputs()
+        {
+            _playerController = Game.Instance.PlayerController;
+
+            _playerController.OnBButtonPressed += OnBButtonPressed;
+            _playerController.OnBButton += OnBButton;
+            _playerController.OnBButtonReleased += OnBButtonReleased;
+            _playerController.OnAButtonPressed += OnAButtonPressed;
+        }
+
         public override void PauseState()
         {
             _isPaused = true;
+
+            _playerController.ClearInputs();
         }
 
         public override void ContinueState()
         {
             _isPaused = false;
+
+            SubscribeInputs();
         }
 
         public override void EndState()
@@ -109,10 +118,7 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 
             Game.Instance.BattleSession.UnsubscribeVFXController(_chargeVFXController);
 
-            _playerController.OnBButtonPressed -= OnBButtonPressed;
-			_playerController.OnBButton -= OnBButton;
-			_playerController.OnBButtonReleased -= OnBButtonReleased;
-			_playerController.OnAButtonPressed -= OnAButtonPressed;
+            _playerController.ClearInputs();
         }
 
         public override string GetStateID()

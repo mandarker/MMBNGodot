@@ -65,12 +65,5 @@ namespace MMBN.UI
                 }
             }
         }
-
-        public void ShowUI()
-        {
-            Game.Instance.BattleSession.SetPaused(true);
-
-            this.Visible = true;
-        }
     }
 }

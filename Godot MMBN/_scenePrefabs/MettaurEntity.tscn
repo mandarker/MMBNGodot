@@ -50,7 +50,7 @@ shader = ExtResource("11_a6vnv")
 shader_parameter/_col = Vector4(1, 1, 1, 1)
 shader_parameter/_colTint = Vector4(0, 0, 1, 1)
 shader_parameter/_white = null
-shader_parameter/_clear = null
+shader_parameter/_transparency = 1.0
 shader_parameter/_flash = false
 shader_parameter/_tintStrength = 0.0
 shader_parameter/_pixelationStrength = 0.0
@@ -61,7 +61,7 @@ shader = ExtResource("11_a6vnv")
 shader_parameter/_col = Vector4(1, 1, 1, 1)
 shader_parameter/_colTint = null
 shader_parameter/_white = null
-shader_parameter/_clear = null
+shader_parameter/_transparency = 1.0
 shader_parameter/_flash = null
 shader_parameter/_tintStrength = null
 shader_parameter/_pixelationStrength = null
@@ -72,7 +72,7 @@ shader = ExtResource("11_a6vnv")
 shader_parameter/_col = Vector4(1, 1, 1, 1)
 shader_parameter/_colTint = null
 shader_parameter/_white = false
-shader_parameter/_clear = false
+shader_parameter/_transparency = 1.0
 shader_parameter/_flash = null
 shader_parameter/_tintStrength = null
 shader_parameter/_pixelationStrength = null
@@ -91,7 +91,6 @@ _entityType = 2
 [node name="HealthController" type="Node" parent="." node_paths=PackedStringArray("_onDamageDealtModifiers")]
 script = ExtResource("3_n4dio")
 _health = 100
-_invincibleOnDamage = null
 _onDamageDealtModifiers = []
 
 [node name="MovementController" type="Node" parent="."]
@@ -121,7 +120,6 @@ _nextState = NodePath("../IdleState")
 
 [node name="SpawnMettaurWaveAttackBehaviour" type="Node" parent="EntityStateController/AttackState" node_paths=PackedStringArray("_animatorController", "_currentEntity")]
 script = ExtResource("8_s4w20")
-_removeEntity = null
 _attackSpawnDelay = 0.6
 _attackDamage = 20
 _animatorController = NodePath("../../../EntityAnimationController")
@@ -169,7 +167,6 @@ script = ExtResource("11_sx2og")
 _entityHealthController = NodePath("../HealthController")
 _digitSprites = [NodePath("Digit1"), NodePath("Digit2"), NodePath("Digit3"), NodePath("Digit4")]
 _damageColor = Color(1, 0.486275, 0.419608, 1)
-_digitSpread = null
 
 [node name="Digit1" type="Sprite2D" parent="HealthDisplayer"]
 material = SubResource("ShaderMaterial_mb78y")

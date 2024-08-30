@@ -155,45 +155,50 @@ shader = ExtResource("11_wu4e0")
 shader_parameter/_col = Vector4(1, 1, 1, 1)
 shader_parameter/_colTint = Vector4(0, 0, 1, 1)
 shader_parameter/_white = null
-shader_parameter/_clear = null
+shader_parameter/_transparency = 1.0
 shader_parameter/_flash = false
 shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uvuxi"]
 shader = ExtResource("11_wu4e0")
 shader_parameter/_col = Vector4(1, 1, 1, 1)
 shader_parameter/_colTint = Vector4(0, 0, 1, 1)
 shader_parameter/_white = null
-shader_parameter/_clear = null
+shader_parameter/_transparency = 1.0
 shader_parameter/_flash = null
 shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_imh3r"]
 shader = ExtResource("11_wu4e0")
 shader_parameter/_col = Vector4(1, 1, 1, 1)
 shader_parameter/_colTint = Vector4(0, 0, 1, 1)
 shader_parameter/_white = null
-shader_parameter/_clear = null
+shader_parameter/_transparency = 1.0
 shader_parameter/_flash = null
 shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1hopb"]
 shader = ExtResource("11_wu4e0")
 shader_parameter/_col = Vector4(1, 1, 1, 1)
 shader_parameter/_colTint = Vector4(0, 0, 1, 1)
 shader_parameter/_white = null
-shader_parameter/_clear = null
+shader_parameter/_transparency = 1.0
 shader_parameter/_flash = null
 shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g6slo"]
 shader = ExtResource("11_wu4e0")
 shader_parameter/_col = Vector4(1, 1, 1, 1)
 shader_parameter/_colTint = Vector4(0, 0, 1, 1)
 shader_parameter/_white = null
-shader_parameter/_clear = null
+shader_parameter/_transparency = 1.0
 shader_parameter/_flash = null
 shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
 
 [node name="PlayerEntity" type="Node2D" node_paths=PackedStringArray("_healthController", "_movementController", "_stateMachine", "_animationController")]
 z_index = 1
@@ -251,8 +256,6 @@ _nextState = NodePath("../PlayerMovementState")
 [node name="BusterAttackBehaviour" type="Node" parent="EntityStateController/PlayerBusterShotState" node_paths=PackedStringArray("_busterAttackAudioStreamPlayer", "_busterHitAudioStreamPlayer", "_animatorController", "_currentEntity")]
 script = ExtResource("8_8lxsi")
 _attackSpawnDelay = 0.05
-_busterAttackPower = null
-_busterAttackChargeMultiplier = null
 _busterAttackAudioStreamPlayer = NodePath("../../../SFX/BusterAttackAudioStreamPlayer")
 _busterHitAudioStreamPlayer = NodePath("../../../SFX/BusterHitAudioStreamPlayer")
 _animatorController = NodePath("../../../EntityAnimationController")
