@@ -5,14 +5,15 @@
 [ext_resource type="Texture2D" uid="uid://stvcki2b3in1" path="res://_sprites/Battle Sprites/chips/battlesprites_chips_cannon.png" id="3_qarah"]
 [ext_resource type="Texture2D" uid="uid://be0b7yfsr88ph" path="res://_sprites/UI/custom_chip_under_lettering.png" id="4_as2jk"]
 
-[node name="BattleCustomScreen" type="Sprite2D" node_paths=PackedStringArray("customChipSprites", "customChipCodeSprites", "loadedChipSprites")]
+[node name="BattleCustomScreen" type="Sprite2D" node_paths=PackedStringArray("_customChipSprites", "_customChipCodeSprites", "_loadedChipSprites", "_customUIElements")]
 z_index = 10
 position = Vector2(-60, 1)
 texture = ExtResource("1_b3110")
 script = ExtResource("2_2fuk8")
-customChipSprites = [NodePath("CustomSprite1"), NodePath("CustomSprite2"), NodePath("CustomSprite3"), NodePath("CustomSprite4"), NodePath("CustomSprite5")]
-customChipCodeSprites = [NodePath("CustomSprite1/CustomCodeSprite1"), NodePath("CustomSprite2/CustomCodeSprite2"), NodePath("CustomSprite3/CustomCodeSprite3"), NodePath("CustomSprite4/CustomCodeSprite4"), NodePath("CustomSprite5/CustomCodeSprite5")]
-loadedChipSprites = [NodePath("SelectedSprite1"), NodePath("SelectedSprite2"), NodePath("SelectedSprite3"), NodePath("SelectedSprite4"), NodePath("SelectedSprite5")]
+_customChipSprites = []
+_customChipCodeSprites = []
+_loadedChipSprites = []
+_customUIElements = []
 
 [node name="CustomSprite1" type="Sprite2D" parent="."]
 position = Vector2(-44, 32)

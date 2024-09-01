@@ -41,7 +41,7 @@ namespace MMBN.Gameplay.Battle
             chipStructs.Add(cannon1);
 
             BattleChipStruct cannon2 = new BattleChipStruct();
-            cannon2.Code = 'A';
+            cannon2.Code = '*';
             cannon2.ChipBase = ChipDictionary[CANNON_CHIP_ID];
             chipStructs.Add(cannon2);
 

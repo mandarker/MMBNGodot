@@ -17,6 +17,9 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
         [Export]
         private GeneralState _nextState;
 
+        [Export]
+        private AudioStream _spawningAudioStream;
+
         private InterpolatedEventHandler<float> _pixelationInterpolatedEventHandler;
 
         private int _entityCounter;
@@ -50,6 +53,8 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
             {
                 entity.StateMachine.PauseStateMachine(this);
             }
+
+            Game.Instance.SFXManager.PlaySFX(_spawningAudioStream);
         }
 
         public override void UpdateState(float deltaTime)
@@ -71,6 +76,10 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
             if (_entityCounter >= _enemyEntities.Count)
             {
                 _parentStateMachine.SetState(_nextState);
+            }
+            else
+            {
+                Game.Instance.SFXManager.PlaySFX(_spawningAudioStream);
             }
         }
     }

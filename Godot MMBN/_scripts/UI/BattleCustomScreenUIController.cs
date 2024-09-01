@@ -1,69 +1,80 @@
 using Godot;
 using MMBN.Gameplay.Battle;
+using MMBN.UI.GenericUI;
 using System;
 using System.Collections.Generic;
 
 namespace MMBN.UI
 {
-    public partial class BattleCustomScreenUIController : Node2D
+    public partial class BattleCustomScreenUIController : GenericUIController
     {
 
         [Export]
-        private Sprite2D[] customChipSprites;
+        private Sprite2D[] _customChipSprites;
 
         [Export]
-        private Sprite2D[] customChipCodeSprites;
+        private Sprite2D[] _customChipCodeSprites;
 
         [Export]
-        private Sprite2D[] loadedChipSprites;
+        private Sprite2D[] _loadedChipSprites;
 
-        private List<BattleChipsManager.BattleChipStruct> _customChips;
-        private List<BattleChipsManager.BattleChipStruct> _loadedChips;
+        [Export]
+        private GenericUIElement[] _customUIElements;
 
-        private const int MAXIMUM_CUSTOM_CHIPS = 5;
+        [Export]
+        private AnimationPlayer _customAnimationPlayer;
 
-        public void Initialize()
-        {
-            _customChips = new List<BattleChipsManager.BattleChipStruct>();
-            _loadedChips = new List<BattleChipsManager.BattleChipStruct>();
-        }
-
-        public void ResetUI()
+        public void ResetUI(List<BattleChipsManager.BattleChipStruct> customBattleChips)
         {
             // turn off all sprites in the list of loaded sprites
-            foreach (Sprite2D loadedChipSprite in loadedChipSprites)
+            foreach (Sprite2D loadedChipSprite in _loadedChipSprites)
             {
                 loadedChipSprite.Visible = false;
             }
 
-            if (_customChips.Count < MAXIMUM_CUSTOM_CHIPS)
+            for (int i = 0; i < _customChipSprites.Length; ++i)
             {
-                List<BattleChipsManager.BattleChipStruct> newBattleChips = Game.Instance.BattleChipsManager.GetRandomAvailableBattleChips(MAXIMUM_CUSTOM_CHIPS - _customChips.Count);
-                _customChips.AddRange(newBattleChips);
-
-                // update selectable chips here
-                for (int i = 0; i < customChipSprites.Length; ++i)
+                if (i < customBattleChips.Count)
                 {
-                    if (i < MAXIMUM_CUSTOM_CHIPS)
+                    _customChipSprites[i].Visible = true;
+                    _customChipCodeSprites[i].Visible = true;
+                    _customChipSprites[i].Texture = customBattleChips[i].ChipBase.ChipDataResource.ChipBattleTexture;
+                    if (customBattleChips[i].Code == '*')
                     {
-                        customChipSprites[i].Visible = true;
-                        customChipSprites[i].Texture = _customChips[i].ChipBase.ChipDataResource.ChipBattleTexture;
-                        if (_customChips[i].Code == '*')
-                        {
-                            // the very last frame
-                            customChipCodeSprites[i].Frame = 26;
-                        }
-                        else
-                        {
-                            customChipCodeSprites[i].Frame = _customChips[i].Code - 'A';
-                        }
+                        // the very last frame
+                        _customChipCodeSprites[i].Frame = 26;
                     }
                     else
                     {
-                        customChipSprites[i].Visible = false;
+                        _customChipCodeSprites[i].Frame = customBattleChips[i].Code - 'A';
                     }
                 }
+                else
+                {
+                    _customChipSprites[i].Visible = false;
+                }
             }
+        }
+
+        public void ShowUI()
+        {
+            _customAnimationPlayer.Play("OpenBattleCustomScreen");
+        }
+
+        public void AddLoadedChipSprite(int index, Texture2D chipSprite)
+        {
+            _loadedChipSprites[index].Visible = true;
+            _loadedChipSprites[index].Texture = chipSprite;
+        }
+
+        public void RemoveLoadedChipSprite(int index)
+        {
+            _loadedChipSprites[index].Visible = false;
+        }
+
+        public void SetGrey(int index, bool grey)
+        {
+            ((ShaderMaterial)(_customChipSprites[index].Material)).Set("_greyscale", grey);
         }
     }
 }

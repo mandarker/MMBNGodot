@@ -72,7 +72,9 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 		public void UnpauseStateMachine(Object obj)
 		{
 			_isStateMachinePaused.RemoveLocker(obj);
-			_currentState.ContinueState();
+
+            if (!_isStateMachinePaused.IsLocked)
+			    _currentState.ContinueState();
 		}
     }
 }

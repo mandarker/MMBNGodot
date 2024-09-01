@@ -5,6 +5,9 @@ namespace MMBN.Gameplay.Chips
 {
 	public partial class ChipDataResource : Resource
 	{
+        [Export]
+        private uint _id;
+
 		[Export]
 		private uint _attack;
 
@@ -20,6 +23,7 @@ namespace MMBN.Gameplay.Chips
         [Export]
         private float[] _audioOffsets;
 
+        public uint ID { get { return _id;  } }
 		public uint Attack { get { return _attack; }}
 		public Texture2D ChipBattleTexture { get { return _chipBattleTexture;}}
         public AttackData.DamageType Type { get { return _damageType; }}

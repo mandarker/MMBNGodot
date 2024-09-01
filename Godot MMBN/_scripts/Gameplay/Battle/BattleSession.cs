@@ -110,11 +110,6 @@ namespace MMBN.Gameplay.Battle
             // set up chips
             Game.Instance.BattleChipsManager.ResetAvailableBattleChips();
 
-            // set up custom screen
-            _customScreenUIController.Initialize();
-            _customScreenUIController.ResetUI();
-
-
             OnEnemyDied += CheckIfAllEnemiesDied;
         }
 

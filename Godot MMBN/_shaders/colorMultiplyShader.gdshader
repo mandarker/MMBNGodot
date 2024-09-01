@@ -4,6 +4,7 @@ uniform vec4 _col;
 uniform vec4 _colTint;
 
 uniform bool _white;
+uniform bool _greyscale;
 uniform float _transparency = 1;
 uniform bool _flash;
 uniform float _tintStrength;
@@ -29,6 +30,11 @@ void fragment() {
 	{
 		float lerp = (sin(TIME * float(25)) + float(1)) / float(2);
 		COLOR = vec4(COLOR.r, COLOR.g, COLOR.b, COLOR.a * round(lerp));	
+	}
+	
+	if (_greyscale)
+	{
+		COLOR = vec4( vec3(dot( COLOR.rgb, vec3(0.2f))), COLOR.a);
 	}
 	
 	COLOR = vec4(COLOR.r, COLOR.g, COLOR.b, COLOR.a * _transparency);

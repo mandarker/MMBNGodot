@@ -7,6 +7,7 @@
 
 [resource]
 script = ExtResource("1_3ss2b")
+_id = 1
 _attack = 80
 _chipBattleTexture = ExtResource("1_bqk7g")
 _damageType = 0
