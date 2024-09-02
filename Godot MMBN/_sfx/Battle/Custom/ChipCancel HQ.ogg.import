@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b2cm2c2yvkx41"
+path="res://.godot/imported/ChipCancel HQ.ogg-6ff833def60b8b9626a4486d5191b51e.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/Custom/ChipCancel HQ.ogg"
+dest_files=["res://.godot/imported/ChipCancel HQ.ogg-6ff833def60b8b9626a4486d5191b51e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

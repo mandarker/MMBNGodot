@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b5esvpk8y8rju"
+path="res://.godot/imported/CustomScreenOpen HQ.ogg-178614763e93f5b37bbada12ab62a082.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/Custom/CustomScreenOpen HQ.ogg"
+dest_files=["res://.godot/imported/CustomScreenOpen HQ.ogg-178614763e93f5b37bbada12ab62a082.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

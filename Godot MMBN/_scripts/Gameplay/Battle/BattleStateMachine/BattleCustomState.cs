@@ -1,8 +1,10 @@
 using Godot;
+using Godot.NativeInterop;
 using MMBN.UI;
 using MMBN.Utility;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MMBN.Gameplay.Battle.BattleStateMachine
@@ -13,7 +15,7 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
         private BattleCustomScreenUIController _battleCustomScreenUIController;
 
         [Export]
-        private AudioStream _customOpenAudioStream;
+        private GeneralState _nextState;
 
         private List<BattleChipsManager.BattleChipStruct> _customChips;
         private List<BattleChipsManager.BattleChipStruct> _loadedChips;
@@ -24,7 +26,7 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
 
         public override void EndState()
         {
-
+            _battleCustomScreenUIController.CleanUpUI();
         }
 
         public override void StartState()
@@ -49,9 +51,11 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
                 _battleCustomScreenUIController.ResetUI(_customChips);
             }
 
-            _battleCustomScreenUIController.ShowUI();
+            _battleCustomScreenUIController.SetupUIEvents(TryLoadChip, SetChipDesc, SendChips);
 
-            Game.Instance.SFXManager.PlaySFX(_customOpenAudioStream);
+            Game.Instance.PlayerController.OnBButtonPressed += UnloadChip;
+
+            _battleCustomScreenUIController.ShowUI();
         }
 
         public override void UpdateState(float deltaTime)
@@ -66,9 +70,16 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
                 _loadedChips.Add(_customChips[chipIndex]);
                 _isChipLoaded[chipIndex] = true;
                 _chipsLoadedIndexStack.Push(chipIndex);
+
+                _battleCustomScreenUIController.AddLoadedChipSprite(_loadedChips.Count - 1, _customChips[chipIndex].ChipBase.ChipDataResource.ChipBattleTexture);
             }
 
             UpdateCustomChipsUI();
+        }
+
+        public void SetChipDesc(int chipIndex)
+        {
+            _battleCustomScreenUIController.ShowChipDesc(_customChips[chipIndex]);
         }
 
         public void UnloadChip()
@@ -80,21 +91,47 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
 
             int lastChipIndex = _chipsLoadedIndexStack.Pop();
             _isChipLoaded[lastChipIndex] = false;
+            _loadedChips.RemoveAt(_loadedChips.Count - 1);
+
+            _battleCustomScreenUIController.RemoveLoadedChipSprite(_loadedChips.Count);
 
             UpdateCustomChipsUI();
+        }
+
+        public void SendChips()
+        {
+            for (int i = 0; i < _loadedChips.Count; ++i)
+            {
+                Game.Instance.BattleSession.ChipsController.EnqueueChip(_loadedChips[i].ChipBase);
+            }
+            
+            Game.Instance.BattleSession.ChipsController.DisplayChipsOnPlayer();
+
+            _battleCustomScreenUIController.HideUI();
+
+            _parentStateMachine.SetState(_nextState);
         }
 
         private void UpdateCustomChipsUI()
         {
             for (int i = 0; i < _customChips.Count; ++i)
             {
-                if (IsChipLoadable(_customChips[i]) && !_isChipLoaded[i])
+                if (_isChipLoaded[i])
                 {
-                    _battleCustomScreenUIController.SetGrey(i, false);
+                    _battleCustomScreenUIController.SetVisible(i, false);
                 }
                 else
                 {
-                    _battleCustomScreenUIController.SetGrey(i, true);
+                    _battleCustomScreenUIController.SetVisible(i, true);
+
+                    if (IsChipLoadable(_customChips[i]))
+                    {
+                        _battleCustomScreenUIController.SetGrey(i, false);
+                    }
+                    else
+                    {
+                        _battleCustomScreenUIController.SetGrey(i, true);
+                    }
                 }
             }
         }
@@ -121,7 +158,7 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
             }
 
             // if there are multiple codes of one type of chip
-            if (idHashset.Count == 1 && codeHashset.Count > 1)
+            if (idHashset.Count == 1)
             {
                 // if it's also the same type of chip irregardless of the code
                 if (idHashset.Contains(loadingBattleChipStruct.ChipBase.ChipDataResource.ID))
@@ -131,7 +168,11 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
                 }
                 else
                 {
-                    return false;
+                    // special case where there's an asterisk involved
+                    if (codeHashset.Count > 1)
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -142,7 +183,7 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
             }
 
             // check if the code is within the hashset
-            if (codeHashset.Contains(loadingBattleChipStruct.Code))
+            if (codeHashset.Contains(loadingBattleChipStruct.Code) || codeHashset.Count == 0)
             {
                 return true;
             }

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bg2hxglc8dlq6"
+path="res://.godot/imported/ChipDesc HQ.ogg-8dc33a6dab16df807b7ea11abadd5dad.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/Custom/ChipDesc HQ.ogg"
+dest_files=["res://.godot/imported/ChipDesc HQ.ogg-8dc33a6dab16df807b7ea11abadd5dad.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dg75p11xdfqa3"
+path="res://.godot/imported/ChipChoose HQ.ogg-16450bd693ea24987be834e814cf11ea.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/Custom/ChipChoose HQ.ogg"
+dest_files=["res://.godot/imported/ChipChoose HQ.ogg-16450bd693ea24987be834e814cf11ea.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

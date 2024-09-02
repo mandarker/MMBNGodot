@@ -36,36 +36,48 @@ namespace MMBN.UI.GenericUI
             OnExitHover?.Invoke();
         }
 
-        public virtual void MoveLeft()
+        public virtual bool MoveLeft()
         {
             if (_leftUIElement != null)
             {
                 _controller.HoverUIElement(_leftUIElement);
+                return true;
             }
+
+            return false;
         }
 
-        public virtual void MoveRight()
+        public virtual bool MoveRight()
         {
             if (_rightUIElement != null)
             {
                 _controller.HoverUIElement(_rightUIElement);
+                return true;
             }
+
+            return false;
         }
 
-        public virtual void MoveUp()
+        public virtual bool MoveUp()
         {
             if (_upUIElement != null)
             {
                 _controller.HoverUIElement(_upUIElement);
+                return true;
             }
+
+            return false;
         }
 
-        public virtual void MoveDown()
+        public virtual bool MoveDown()
         {
             if (_downUIElement != null)
             {
                 _controller.HoverUIElement(_downUIElement);
+                return true;
             }
+
+            return false;
         }
     }
 }
