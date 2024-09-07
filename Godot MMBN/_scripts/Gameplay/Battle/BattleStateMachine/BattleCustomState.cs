@@ -27,6 +27,11 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
         public override void EndState()
         {
             _battleCustomScreenUIController.CleanUpUI();
+
+            foreach (BattleChipsManager.BattleChipStruct battleChipStruct in _loadedChips)
+            {
+                _customChips.Remove(battleChipStruct);
+            }
         }
 
         public override void StartState()
@@ -50,6 +55,8 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
 
                 _battleCustomScreenUIController.ResetUI(_customChips);
             }
+
+            Game.Instance.BattleSession.ChipsController.ClearQueue();
 
             _battleCustomScreenUIController.SetupUIEvents(TryLoadChip, SetChipDesc, SendChips);
 

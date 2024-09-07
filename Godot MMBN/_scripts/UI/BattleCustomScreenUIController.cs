@@ -61,6 +61,7 @@ namespace MMBN.UI
                     _customChipSprites[i].Visible = true;
                     _customChipCodeSprites[i].Visible = true;
                     _customChipSprites[i].Texture = customBattleChips[i].ChipBase.ChipDataResource.ChipBattleTexture;
+                    SetGrey(i, false);
                     if (customBattleChips[i].Code == '*')
                     {
                         // the very last frame

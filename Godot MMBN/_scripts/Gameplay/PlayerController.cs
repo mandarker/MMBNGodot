@@ -18,9 +18,15 @@ public partial class PlayerController : Node
 
     public Action OnStartButtonPressed;
 
+    public Action OnLButtonPressed;
+
+    public Action OnRButtonPressed;
+
 	private bool _prevBButtonState = false;
 	private bool _prevAButtonState = false;
     private bool _prevStartButtonState = false;
+    private bool _prevLButtonState = false;
+    private bool _prevRButtonState = false;
 
     private bool _aButtonDisabled = false;
     private bool _bButtonDisabled = false;
@@ -28,6 +34,8 @@ public partial class PlayerController : Node
     private const Key B_KEY = Key.Down;
     private const Key A_KEY = Key.Right;
     private const Key START_KEY = Key.F;
+    private const Key L_Key = Key.Q;
+    private const Key R_Key = Key.E;
 
     public void SetAButtonDisabled(bool disabled)
     {
@@ -49,6 +57,9 @@ public partial class PlayerController : Node
         OnBButtonReleased = null;
 
         OnStartButtonPressed = null;
+
+        OnLButtonPressed = null;
+        OnRButtonPressed = null;
     }
 
     public override void _Input(InputEvent @event)
@@ -159,6 +170,38 @@ public partial class PlayerController : Node
             if (_prevStartButtonState == true)
             {
                 _prevStartButtonState = false;
+            }
+        }
+
+        if (Input.IsKeyPressed(L_Key))
+        {
+            if (_prevLButtonState == false)
+            {
+                OnLButtonPressed?.Invoke();
+                _prevLButtonState = true;
+            }
+        }
+        else
+        {
+            if (_prevLButtonState == true)
+            {
+                _prevLButtonState = false;
+            }
+        }
+
+        if (Input.IsKeyPressed(R_Key))
+        {
+            if (_prevRButtonState == false)
+            {
+                OnRButtonPressed?.Invoke();
+                _prevRButtonState = true;
+            }
+        }
+        else
+        {
+            if (_prevRButtonState == true)
+            {
+                _prevRButtonState = false;
             }
         }
     }

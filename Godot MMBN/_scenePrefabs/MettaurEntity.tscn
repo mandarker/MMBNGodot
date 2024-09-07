@@ -12,8 +12,8 @@
 [ext_resource type="Script" path="res://_scripts/Gameplay/Entities/AttackBehaviours/SpawnMettaurWaveAttackBehaviour.cs" id="8_s4w20"]
 [ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/DeathState.cs" id="9_65pp4"]
 [ext_resource type="Shader" path="res://_shaders/colorMultiplyShader.gdshader" id="11_a6vnv"]
-[ext_resource type="Texture2D" uid="uid://c42vsqesbrh83" path="res://_sprites/UI/battle_hp.png" id="11_lh2y2"]
 [ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityHealthDisplayer.cs" id="11_sx2og"]
+[ext_resource type="Texture2D" uid="uid://byxmem8ph5m37" path="res://_sprites/UI/battle_hp_outline.png" id="14_lerjp"]
 [ext_resource type="AudioStream" uid="uid://bstcwc23qwvok" path="res://_sfx/Battle/_general/explode HQ.ogg" id="15_kcmby"]
 
 [sub_resource type="Animation" id="Animation_5s3xy"]
@@ -175,25 +175,25 @@ _damageColor = Color(1, 0.486275, 0.419608, 1)
 [node name="Digit1" type="Sprite2D" parent="HealthDisplayer"]
 material = SubResource("ShaderMaterial_mb78y")
 position = Vector2(0, 5)
-texture = ExtResource("11_lh2y2")
+texture = ExtResource("14_lerjp")
 hframes = 10
 
 [node name="Digit2" type="Sprite2D" parent="HealthDisplayer"]
 material = SubResource("ShaderMaterial_mb78y")
 position = Vector2(0, 5)
-texture = ExtResource("11_lh2y2")
+texture = ExtResource("14_lerjp")
 hframes = 10
 
 [node name="Digit3" type="Sprite2D" parent="HealthDisplayer"]
 material = SubResource("ShaderMaterial_mb78y")
 position = Vector2(0, 5)
-texture = ExtResource("11_lh2y2")
+texture = ExtResource("14_lerjp")
 hframes = 10
 
 [node name="Digit4" type="Sprite2D" parent="HealthDisplayer"]
 material = SubResource("ShaderMaterial_mb78y")
 position = Vector2(0, 5)
-texture = ExtResource("11_lh2y2")
+texture = ExtResource("14_lerjp")
 hframes = 10
 
 [node name="SFX" type="Node" parent="."]

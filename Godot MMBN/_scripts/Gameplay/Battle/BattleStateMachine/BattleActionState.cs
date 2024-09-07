@@ -16,13 +16,28 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
         [Export]
         private PauseUIController _pauseUIController;
 
+        [Export]
+        private BattleCustomBarUIController _battleCustomBarUIController;
+
+        [Export]
+        private AudioStream _custBarFullSFX;
+
+        [Export]
+        private GeneralState _customState;
+
         private PlayerController _playerController;
 
         private bool _isPaused = false;
 
+        private float _battleCustomAmount;
+        [Export]
+        private float _battleCustomSpeed;
+        private bool _wasCustomFull;
+
         public override void EndState()
         {
             _playerController.ClearInputs();
+            _battleCustomBarUIController.SetVisible(false);
         }
 
         public override void StartState()
@@ -31,8 +46,15 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
             _playerController.ClearInputs();
             SetStatePaused(false);
             _playerController.OnStartButtonPressed += () => SetStatePaused(!_isPaused);
+            _playerController.OnLButtonPressed += TryOpenCustom;
+            _playerController.OnRButtonPressed += TryOpenCustom;
+
+            _battleCustomAmount = 0;
+            _battleCustomBarUIController.ResetUI();
+            _battleCustomBarUIController.SetVisible(true);
 
             _isPaused = false;
+            _wasCustomFull = false;
         }
 
         private void SetStatePaused(bool isPaused)
@@ -67,10 +89,33 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
             }
         }
 
+        private void TryOpenCustom()
+        {
+            if (_battleCustomAmount >= 1)
+            {
+                _parentStateMachine.SetState(_customState);
+            }
+        }
+
+
         public override void UpdateState(float deltaTime)
         {
             if (_isPaused)
                 return;
+
+            _battleCustomAmount += deltaTime * _battleCustomSpeed;
+            if (_battleCustomAmount >= 1)
+            {
+                if (!_wasCustomFull)
+                {
+                    _wasCustomFull = true;
+                    Game.Instance.SFXManager.PlaySFX(_custBarFullSFX);
+                }
+
+                _battleCustomAmount = 1;
+            }
+
+            _battleCustomBarUIController.SetBarFill(_battleCustomAmount);
 
             List<BattleEntity> queuedAddEntities = _battleSession.GetQueuedAddedEntities();
             List<BattleEntity> allEntities = _battleSession.GetAllEntities();

@@ -1,5 +1,6 @@
 shader_type canvas_item;
 
+uniform bool _scaleXOnly;
 uniform float _scale;
 uniform float _frames;
 uniform float _scrollSpeed;
@@ -28,6 +29,9 @@ void vertex(){
 
 void fragment() {
 	vec2 modifiedUV = _extraUV * _scale;
+	if (_scaleXOnly)
+		modifiedUV.y /= _scale;
+	
 	modifiedUV -= TIME * _scrollSpeed;
 	modifiedUV = fract(modifiedUV);
 	

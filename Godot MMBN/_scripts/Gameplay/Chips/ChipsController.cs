@@ -39,6 +39,11 @@ namespace MMBN.Gameplay.Chips
 			return frontChip;
 		}
 
+        public void ClearQueue()
+        {
+            _chipQueue.Clear();
+        }
+
 		public ChipBase PeekChip()
 		{
 			if (_chipQueue.Count == 0)
