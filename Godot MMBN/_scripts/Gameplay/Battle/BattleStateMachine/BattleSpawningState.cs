@@ -20,6 +20,9 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
         [Export]
         private AudioStream _spawningAudioStream;
 
+        [Export]
+        private GeneralState _actionState;
+
         private InterpolatedEventHandler<float> _pixelationInterpolatedEventHandler;
 
         private int _entityCounter;
@@ -27,10 +30,7 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
 
         public override void EndState()
         {
-            foreach (var entity in _battleSession.GetAllEntities())
-            {
-                entity.StateMachine.UnpauseStateMachine(this);
-            }
+            
         }
 
         public override void StartState()
@@ -51,7 +51,7 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
 
             foreach (var entity in _battleSession.GetAllEntities())
             {
-                entity.StateMachine.PauseStateMachine(this);
+                entity.StateMachine.PauseStateMachine(_actionState);
             }
 
             Game.Instance.SFXManager.PlaySFX(_spawningAudioStream);

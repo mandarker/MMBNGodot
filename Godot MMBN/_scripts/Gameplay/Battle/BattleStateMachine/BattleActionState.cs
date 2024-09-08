@@ -38,6 +38,11 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
         {
             _playerController.ClearInputs(this);
             _battleCustomBarUIController.SetVisible(false);
+
+            foreach (var entity in _battleSession.GetAllEntities())
+            {
+                entity.StateMachine.PauseStateMachine(this);
+            }
         }
 
         public override void StartState()
@@ -64,6 +69,11 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
             _battleCustomAmount = 0;
             _battleCustomBarUIController.ResetUI();
             _battleCustomBarUIController.SetVisible(true);
+
+            foreach (var entity in _battleSession.GetAllEntities())
+            {
+                entity.StateMachine.UnpauseStateMachine(this);
+            }
 
             _isPaused = false;
             _wasCustomFull = false;
