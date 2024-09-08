@@ -89,17 +89,33 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
         {
             _playerController = Game.Instance.PlayerController;
 
-            _playerController.OnBButtonPressed += OnBButtonPressed;
-            _playerController.OnBButton += OnBButton;
-            _playerController.OnBButtonReleased += OnBButtonReleased;
-            _playerController.OnAButtonPressed += OnAButtonPressed;
+            _playerController.SubscribeInput(
+                this,
+                PlayerController.ButtonDictionaryEnum.B_BUTTON_PRESSED,
+                OnBButtonPressed
+                );
+            _playerController.SubscribeInput(
+                this,
+                PlayerController.ButtonDictionaryEnum.B_BUTTON,
+                OnBButton
+                );
+            _playerController.SubscribeInput(
+                this,
+                PlayerController.ButtonDictionaryEnum.B_BUTTON_RELEASED,
+                OnBButtonReleased
+                );
+            _playerController.SubscribeInput(
+                this,
+                PlayerController.ButtonDictionaryEnum.A_BUTTON_PRESSED,
+                OnAButtonPressed
+                );
         }
 
         public override void PauseState()
         {
             _isPaused = true;
 
-            _playerController.ClearInputs();
+            _playerController.ClearInputs(this);
         }
 
         public override void ContinueState()
@@ -118,7 +134,7 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 
             Game.Instance.BattleSession.UnsubscribeVFXController(_chargeVFXController);
 
-            _playerController.ClearInputs();
+            _playerController.ClearInputs(this);
         }
 
         public override string GetStateID()

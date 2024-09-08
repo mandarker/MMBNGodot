@@ -94,7 +94,7 @@ namespace MMBN.Gameplay.Battle
             List<BattleChipStruct> randomAvailableBattleChips = new List<BattleChipStruct>();
             RandomNumberGenerator generator = new RandomNumberGenerator();
 
-            for (int i = 0; i < count; ++i)
+            for (int i = 0; i < count && i < AvailableBattleChips.Count; ++i)
             {
                 int randomIndex = generator.RandiRange(0, AvailableBattleChips.Count - 1);
                 randomAvailableBattleChips.Add(AvailableBattleChips[randomIndex]);

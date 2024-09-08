@@ -32,6 +32,8 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
             {
                 _customChips.Remove(battleChipStruct);
             }
+
+            Game.Instance.PlayerController.ClearInputs(this);
         }
 
         public override void StartState()
@@ -60,7 +62,11 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
 
             _battleCustomScreenUIController.SetupUIEvents(TryLoadChip, SetChipDesc, SendChips);
 
-            Game.Instance.PlayerController.OnBButtonPressed += UnloadChip;
+            Game.Instance.PlayerController.SubscribeInput(
+                this,
+                PlayerController.ButtonDictionaryEnum.B_BUTTON_PRESSED,
+                UnloadChip
+                );
 
             _battleCustomScreenUIController.ShowUI();
         }

@@ -36,18 +36,30 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
 
         public override void EndState()
         {
-            _playerController.ClearInputs();
+            _playerController.ClearInputs(this);
             _battleCustomBarUIController.SetVisible(false);
         }
 
         public override void StartState()
         {
             _playerController = Game.Instance.PlayerController;
-            _playerController.ClearInputs();
+            _playerController.ClearInputs(this);
             SetStatePaused(false);
-            _playerController.OnStartButtonPressed += () => SetStatePaused(!_isPaused);
-            _playerController.OnLButtonPressed += TryOpenCustom;
-            _playerController.OnRButtonPressed += TryOpenCustom;
+            _playerController.SubscribeInput(
+                this, 
+                PlayerController.ButtonDictionaryEnum.START_BUTTON_PRESSED, 
+                () => SetStatePaused(!_isPaused)
+                );
+            _playerController.SubscribeInput(
+                this,
+                PlayerController.ButtonDictionaryEnum.L_BUTTON_PRESSED,
+                TryOpenCustom
+                );
+            _playerController.SubscribeInput(
+                this,
+                PlayerController.ButtonDictionaryEnum.R_BUTTON_PRESSED,
+                TryOpenCustom
+                );
 
             _battleCustomAmount = 0;
             _battleCustomBarUIController.ResetUI();
@@ -91,6 +103,7 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
 
         private void TryOpenCustom()
         {
+            GD.Print("what");
             if (_battleCustomAmount >= 1)
             {
                 _parentStateMachine.SetState(_customState);

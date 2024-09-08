@@ -1,28 +1,47 @@
 using Godot;
 using System;
 
+using System.Linq;
 using MMBN.Utility;
 using System.Diagnostics;
+using Godot.Collections;
+using System.Collections.Generic;
 
 public partial class PlayerController : Node
 {
 	private Vector2 _directionalInput;
 	public Vector2 DirectionalInput { get{ return _directionalInput; } }
 
-	public Action OnAButtonPressed;
-	public Action OnAButtonReleased;
+    public enum ButtonDictionaryEnum
+    {
+        A_BUTTON_PRESSED,
+        A_BUTTON_RELEASED,
 
-	public Action OnBButtonPressed;
-	public Action OnBButton;
-	public Action OnBButtonReleased;
+        B_BUTTON_PRESSED,
+        B_BUTTON,
+        B_BUTTON_RELEASED,
 
-    public Action OnStartButtonPressed;
+        START_BUTTON_PRESSED,
+        
+        L_BUTTON_PRESSED,
 
-    public Action OnLButtonPressed;
+        R_BUTTON_PRESSED
+    }
 
-    public Action OnRButtonPressed;
+    private List<(object, Action)> OnAButtonPressedDict = new List<(object, Action)>();
+    private List<(object, Action)> OnAButtonReleasedDict = new List<(object, Action)>();
 
-	private bool _prevBButtonState = false;
+    private List<(object, Action)> OnBButtonPressedDict = new List<(object, Action)>();
+    private List<(object, Action)> OnBButtonDict = new List<(object, Action)>();
+    private List<(object, Action)> OnBButtonReleasedDict = new List<(object, Action)>();
+
+    private List<(object, Action)> OnStartButtonPressedDict = new List<(object, Action)>();
+
+    private List<(object, Action)> OnLButtonPressedDict = new List<(object, Action)>();
+
+    private List<(object, Action)> OnRButtonPressedDict = new List<(object, Action)>();
+
+    private bool _prevBButtonState = false;
 	private bool _prevAButtonState = false;
     private bool _prevStartButtonState = false;
     private bool _prevLButtonState = false;
@@ -47,19 +66,57 @@ public partial class PlayerController : Node
         _bButtonDisabled = disabled;
     }
 
-    public void ClearInputs()
+    public void ClearInputs(object obj)
     {
-        OnAButtonPressed = null;
-        OnAButtonReleased = null;
+        OnAButtonPressedDict.RemoveAll(pair => pair.Item1 == obj);
+        OnAButtonReleasedDict.RemoveAll(pair => pair.Item1 == obj);
 
-        OnBButtonPressed = null;
-        OnBButton = null;
-        OnBButtonReleased = null;
+        OnBButtonPressedDict.RemoveAll(pair => pair.Item1 == obj);
+        OnBButtonDict.RemoveAll(pair => pair.Item1 == obj);
+        OnBButtonReleasedDict.RemoveAll(pair => pair.Item1 == obj);
 
-        OnStartButtonPressed = null;
+        OnStartButtonPressedDict.RemoveAll(pair => pair.Item1 == obj);
 
-        OnLButtonPressed = null;
-        OnRButtonPressed = null;
+        OnLButtonPressedDict.RemoveAll(pair => pair.Item1 == obj);
+
+        OnRButtonPressedDict.RemoveAll(pair => pair.Item1 == obj);
+    }
+
+    public void SubscribeInput(object subscriber, ButtonDictionaryEnum buttonEnum, Action action)
+    {
+        switch (buttonEnum)
+        {
+            default:
+            case ButtonDictionaryEnum.A_BUTTON_PRESSED:
+                OnAButtonPressedDict.Add((subscriber, action));
+                break;
+            case ButtonDictionaryEnum.A_BUTTON_RELEASED:
+                OnAButtonReleasedDict.Add((subscriber, action));
+                break;
+
+            case ButtonDictionaryEnum.B_BUTTON_PRESSED:
+                OnBButtonPressedDict.Add((subscriber, action));
+                break;
+            case ButtonDictionaryEnum.B_BUTTON:
+                OnBButtonDict.Add((subscriber, action));
+                break;
+            case ButtonDictionaryEnum.B_BUTTON_RELEASED:
+                OnBButtonReleasedDict.Add((subscriber, action));
+                break;
+
+            case ButtonDictionaryEnum.START_BUTTON_PRESSED:
+                OnStartButtonPressedDict.Add((subscriber, action));
+                break;
+
+            case ButtonDictionaryEnum.L_BUTTON_PRESSED:
+                OnLButtonPressedDict.Add((subscriber, action));
+                break;
+
+            case ButtonDictionaryEnum.R_BUTTON_PRESSED:
+                OnRButtonPressedDict.Add((subscriber, action));
+                break;
+        }
+        
     }
 
     public override void _Input(InputEvent @event)
@@ -109,20 +166,29 @@ public partial class PlayerController : Node
 		    {
 			    if (_prevBButtonState == false)
 			    {
-				    OnBButtonPressed?.Invoke();
+                    foreach ((object, Action) pair in OnBButtonPressedDict)
+                    {
+                        pair.Item2?.Invoke();
+                    }
 				    _prevBButtonState = true;
 			    }	
 			    else
 			    {
-				    OnBButton?.Invoke();
-			    }
+                    foreach ((object, Action) pair in OnBButtonDict)
+                    {
+                        pair.Item2?.Invoke();
+                    }
+                }
 		    }
 		    else
 		    {
                 if (_prevBButtonState == true)
 			    {
-				    OnBButtonReleased?.Invoke();
-				    _prevBButtonState = false;
+                    foreach ((object, Action) pair in OnBButtonReleasedDict)
+                    {
+                        pair.Item2?.Invoke();
+                    }
+                    _prevBButtonState = false;
 			    }
 		    }
         }
@@ -136,8 +202,11 @@ public partial class PlayerController : Node
 
 			    if (_prevAButtonState == false)
 			    {
-				    OnAButtonPressed?.Invoke();
-				    _prevAButtonState = true;
+                    foreach ((object, Action) pair in OnAButtonPressedDict)
+                    {
+                        pair.Item2?.Invoke();
+                    }
+                    _prevAButtonState = true;
 			    }	
 			    else
 			    {
@@ -151,8 +220,11 @@ public partial class PlayerController : Node
             
                 if (_prevAButtonState == true)
 			    {
-				    OnAButtonReleased?.Invoke();
-				    _prevAButtonState = false;
+                    foreach ((object, Action) pair in OnAButtonReleasedDict)
+                    {
+                        pair.Item2?.Invoke();
+                    }
+                    _prevAButtonState = false;
 			    }
 		    }
         }
@@ -161,7 +233,10 @@ public partial class PlayerController : Node
         {
             if (_prevStartButtonState == false)
             {
-                OnStartButtonPressed?.Invoke();
+                foreach ((object, Action) pair in OnStartButtonPressedDict)
+                {
+                    pair.Item2?.Invoke();
+                }
                 _prevStartButtonState = true;
             }
         }
@@ -177,7 +252,10 @@ public partial class PlayerController : Node
         {
             if (_prevLButtonState == false)
             {
-                OnLButtonPressed?.Invoke();
+                foreach ((object, Action) pair in OnLButtonPressedDict)
+                {
+                    pair.Item2?.Invoke();
+                }
                 _prevLButtonState = true;
             }
         }
@@ -193,7 +271,10 @@ public partial class PlayerController : Node
         {
             if (_prevRButtonState == false)
             {
-                OnRButtonPressed?.Invoke();
+                foreach ((object, Action) pair in OnRButtonPressedDict)
+                {
+                    pair.Item2?.Invoke();
+                }
                 _prevRButtonState = true;
             }
         }

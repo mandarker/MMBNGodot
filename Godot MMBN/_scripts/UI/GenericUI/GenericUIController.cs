@@ -31,8 +31,12 @@ namespace MMBN.UI.GenericUI
             _cursor.GlobalPosition = _startingUIElement.GlobalPosition;
 
             PlayerController playerController = Game.Instance.PlayerController;
-            playerController.ClearInputs();
-            playerController.OnAButtonPressed += SelectCurrentUIElement;
+            playerController.ClearInputs(this);
+            playerController.SubscribeInput(
+                this,
+                PlayerController.ButtonDictionaryEnum.A_BUTTON_PRESSED,
+                SelectCurrentUIElement
+                );
 
             _uiMovementDelayedEventHandler = new ThresholdedDelayedEventHandler(
                 0, 
@@ -46,7 +50,7 @@ namespace MMBN.UI.GenericUI
         public void CleanUpUI()
         {
             _isUIOpen = false;
-            Game.Instance.PlayerController.ClearInputs();
+            Game.Instance.PlayerController.ClearInputs(this);
         }
 
         private void DelayedMovementUpdate()
