@@ -7,7 +7,19 @@ namespace MMBN.Gameplay.Chips
     {
         private uint _damage;
         private string _damageSourceID;
-        public enum DamageType { NEUTRAL, WATER, ELECTRIC, WOOD, FIRE };
+        public enum DamageType {
+            FIRE,
+            AQUA,
+            ELEC,
+            WOOD,
+            SWORD,
+            WIND,
+            CURSOR,
+            SUMMON,
+            BONUS,
+            BREAK,
+            NONE
+        };
         private DamageType _damageType;
 
         public uint Damage { get { return _damage; } }

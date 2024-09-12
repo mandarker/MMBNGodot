@@ -1,5 +1,6 @@
 using Godot;
 using MMBN.Gameplay.Battle;
+using MMBN.UI.Displayers;
 using MMBN.UI.GenericUI;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,14 @@ namespace MMBN.UI
 
         [Export]
         private Sprite2D _chipDescSprite;
+        [Export]
+        private Sprite2D _chipCodeSprite;
+        [Export]
+        private Sprite2D _chipDamageTypeSprite;
+        [Export]
+        private NumberDisplayer _chipAttackDisplayer;
+        [Export]
+        private TextDisplayer _chipNameDisplayer;
 
         [Export]
         private AnimationPlayer _customAnimationPlayer;
@@ -123,6 +132,21 @@ namespace MMBN.UI
         public void ShowChipDesc(BattleChipsManager.BattleChipStruct battleChip)
         {
             _chipDescSprite.Texture = battleChip.ChipBase.ChipDataResource.ChipDescriptionTexture;
+
+            _chipDamageTypeSprite.Frame = (int)battleChip.ChipBase.ChipDataResource.Type;
+            
+            if (battleChip.Code == '*')
+            {
+                _chipCodeSprite.Frame = 26;
+            }
+            else
+            {
+                _chipCodeSprite.Frame = battleChip.Code - 'A';
+            }
+
+            _chipAttackDisplayer.SetNumber((int)battleChip.ChipBase.ChipDataResource.Attack);
+
+            _chipNameDisplayer.SetText(battleChip.ChipBase.ChipDataResource.DisplayName);
         }
 
         public void AddLoadedChipSprite(int index, Texture2D chipSprite)

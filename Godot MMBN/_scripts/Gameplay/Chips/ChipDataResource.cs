@@ -8,6 +8,9 @@ namespace MMBN.Gameplay.Chips
         [Export]
         private uint _id;
 
+        [Export]
+        private string _displayName;
+
 		[Export]
 		private uint _attack;
 
@@ -27,6 +30,7 @@ namespace MMBN.Gameplay.Chips
         private float[] _audioOffsets;
 
         public uint ID { get { return _id;  } }
+        public string DisplayName { get { return _displayName; } }
 		public uint Attack { get { return _attack; }}
 		public Texture2D ChipBattleTexture { get { return _chipBattleTexture;}}
         public Texture2D ChipDescriptionTexture { get { return _chipDescriptionTexture;}} 

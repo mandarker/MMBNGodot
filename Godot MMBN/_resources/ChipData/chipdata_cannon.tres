@@ -9,9 +9,10 @@
 [resource]
 script = ExtResource("1_ur31y")
 _id = 0
+_displayName = "Cannon"
 _attack = 40
 _chipBattleTexture = ExtResource("1_bhuys")
 _chipDescriptionTexture = ExtResource("4_j4wit")
-_damageType = 0
+_damageType = 10
 _audioStreams = Array[AudioStream]([ExtResource("1_np6h7"), ExtResource("2_afmj7")])
 _audioOffsets = PackedFloat32Array(0, 0)

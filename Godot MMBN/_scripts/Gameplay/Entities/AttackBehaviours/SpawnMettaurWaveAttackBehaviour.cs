@@ -54,7 +54,7 @@ namespace MMBN.Gameplay.Entities.AttackBehaviours
             {
                 if (entity != _currentEntity && entity.EntityType != BattleEntity.BattleEntityType.ENEMY && !_damagedEntities.Contains(entity))
                 {
-                    AttackData mettaurWaveAttackData = new AttackData((uint)_attackDamage, _currentEntity.BattleEntityID, AttackData.DamageType.NEUTRAL);
+                    AttackData mettaurWaveAttackData = new AttackData((uint)_attackDamage, _currentEntity.BattleEntityID, AttackData.DamageType.NONE);
 
                     entity.HealthController.DealDamage(mettaurWaveAttackData);
 

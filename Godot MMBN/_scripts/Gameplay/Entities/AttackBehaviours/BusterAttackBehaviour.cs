@@ -82,7 +82,7 @@ namespace MMBN.Gameplay.Entities.AttackBehaviours
             _busterAttackAudioStreamPlayer.Seek(0);
             _busterAttackAudioStreamPlayer.Play();
 
-            AttackData attackData = new AttackData((uint)calculatedDamage, _currentEntity.BattleEntityID, AttackData.DamageType.NEUTRAL);
+            AttackData attackData = new AttackData((uint)calculatedDamage, _currentEntity.BattleEntityID, AttackData.DamageType.NONE);
 
 			for (int i = (int)pos.X + 1; i < 6; ++i)
 			{

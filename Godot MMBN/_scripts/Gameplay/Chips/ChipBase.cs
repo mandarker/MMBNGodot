@@ -2,6 +2,7 @@ using Godot;
 using MMBN.Gameplay.Entities;
 using MMBN.Gameplay.Entities.Animation;
 using System;
+using System.Reflection.Emit;
 
 namespace MMBN.Gameplay.Chips
 {
