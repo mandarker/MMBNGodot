@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bmuevei68i0j8"
+path="res://.godot/imported/Spreader HQ.ogg-4108f2341867b5ea0c2796f7df7151af.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/Spreader/Spreader HQ.ogg"
+dest_files=["res://.godot/imported/Spreader HQ.ogg-4108f2341867b5ea0c2796f7df7151af.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

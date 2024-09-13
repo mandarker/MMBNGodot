@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://bema48hpc3quw"]
+
+[ext_resource type="Texture2D" uid="uid://soc7yha0pcm" path="res://_sprites/Battle Sprites/chips/battlesprites_chips_spreadr1.png" id="1_oukmn"]
+[ext_resource type="AudioStream" uid="uid://bmuevei68i0j8" path="res://_sfx/Battle/Spreader/Spreader HQ.ogg" id="1_vpwxs"]
+[ext_resource type="Texture2D" uid="uid://qx4fxwjnuyl7" path="res://_sprites/Battle Sprites/chipsDescSprites/battlesprites_chipDesc_spreadr1.png" id="2_riddb"]
+[ext_resource type="AudioStream" uid="uid://q7lqetkesgc6" path="res://_sfx/Battle/Buster/1- Buster Hit.wav" id="2_uiiwt"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Chips/ChipDataResource.cs" id="3_dp3hy"]
+
+[resource]
+script = ExtResource("3_dp3hy")
+_id = 9
+_displayName = "Spreadr1"
+_attack = 30
+_chipBattleTexture = ExtResource("1_oukmn")
+_chipDescriptionTexture = ExtResource("2_riddb")
+_damageType = 10
+_audioStreams = Array[AudioStream]([ExtResource("1_vpwxs"), ExtResource("2_uiiwt")])
+_audioOffsets = PackedFloat32Array(0)

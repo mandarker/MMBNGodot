@@ -39,6 +39,8 @@ namespace MMBN.UI
 
         [Export]
         private AnimationPlayer _customAnimationPlayer;
+        [Export]
+        private AnimationPlayer _customSpinnerAnimationPlayer;
 
         [Export]
         private AudioStream _customOpenAudioStream;
@@ -84,6 +86,7 @@ namespace MMBN.UI
                 else
                 {
                     _customChipSprites[i].Visible = false;
+                    _customChipCodeSprites[i].Visible = false;
                 }
             }
 
@@ -172,6 +175,12 @@ namespace MMBN.UI
         public void SetVisible(int index, bool visible)
         {
             _customChipSprites[index].Visible = visible;
+        }
+
+        public void RunSpinAnimation()
+        {
+            _customSpinnerAnimationPlayer.Stop();
+            _customSpinnerAnimationPlayer.Play("Spin");
         }
     }
 }

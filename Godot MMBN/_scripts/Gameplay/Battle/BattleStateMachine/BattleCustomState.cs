@@ -85,6 +85,7 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
                 _chipsLoadedIndexStack.Push(chipIndex);
 
                 _battleCustomScreenUIController.AddLoadedChipSprite(_loadedChips.Count - 1, _customChips[chipIndex].ChipBase.ChipDataResource.ChipBattleTexture);
+                _battleCustomScreenUIController.RunSpinAnimation();
             }
 
             UpdateCustomChipsUI();

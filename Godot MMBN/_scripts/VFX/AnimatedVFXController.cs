@@ -20,7 +20,7 @@ namespace MMBN.VFX
 
 		public void Init(Vector2 position)
 		{
-			Position = position;
+			GlobalPosition = position;
 
 			int randomIndex = GD.RandRange(0, _animationIDs.Length - 1);
 

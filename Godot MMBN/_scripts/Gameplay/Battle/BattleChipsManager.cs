@@ -23,6 +23,7 @@ namespace MMBN.Gameplay.Battle
 
         #region CHIP_IDS
         public static readonly string CANNON_CHIP_ID = "CANNON_CHIP_ID";
+        public static readonly string SPREADER_CHIP_ID = "SPREADER_CHIP_ID";
         public static readonly string SWORD_CHIP_ID = "SWORD_CHIP_ID";
         #endregion
 
@@ -35,8 +36,13 @@ namespace MMBN.Gameplay.Battle
             // temporary
             List<BattleChipStruct> chipStructs = new List<BattleChipStruct>();
             
-            for (int i = 0; i < 5; ++i)
+            for (int i = 0; i < 3; ++i)
             {
+                BattleChipStruct spreader = new BattleChipStruct();
+                spreader.Code = (char)('A' + i);
+                spreader.ChipBase = ChipDictionary[SPREADER_CHIP_ID];
+                chipStructs.Add(spreader);
+                
                 BattleChipStruct cannon = new BattleChipStruct();
                 cannon.Code = (char)('A' + i);
                 cannon.ChipBase = ChipDictionary[CANNON_CHIP_ID];
@@ -48,15 +54,23 @@ namespace MMBN.Gameplay.Battle
                 chipStructs.Add(sword);
             }
 
-            BattleChipStruct cannon2 = new BattleChipStruct();
-            cannon2.Code = '*';
-            cannon2.ChipBase = ChipDictionary[CANNON_CHIP_ID];
-            chipStructs.Add(cannon2);
+            for (int i = 0; i < 2; ++i)
+            {
+                BattleChipStruct spreader = new BattleChipStruct();
+                spreader.Code = '*';
+                spreader.ChipBase = ChipDictionary[SPREADER_CHIP_ID];
+                chipStructs.Add(spreader);
 
-            BattleChipStruct sword2 = new BattleChipStruct();
-            sword2.Code = '*';
-            sword2.ChipBase = ChipDictionary[SWORD_CHIP_ID];
-            chipStructs.Add(sword2);
+                BattleChipStruct cannon = new BattleChipStruct();
+                cannon.Code = '*';
+                cannon.ChipBase = ChipDictionary[CANNON_CHIP_ID];
+                chipStructs.Add(cannon);
+
+                BattleChipStruct sword = new BattleChipStruct();
+                sword.Code = '*';
+                sword.ChipBase = ChipDictionary[SWORD_CHIP_ID];
+                chipStructs.Add(sword);
+            }
 
             SetEquippedChips(chipStructs);
         }
@@ -68,6 +82,10 @@ namespace MMBN.Gameplay.Battle
             CannonChipBase cannonChip = new CannonChipBase();
             cannonChip.Init(GD.Load<ChipDataResource>("res://_resources/ChipData/chipdata_cannon.tres"));
             ChipDictionary.Add(CANNON_CHIP_ID, cannonChip);
+
+            SpreaderChipBase spreaderChip = new SpreaderChipBase();
+            spreaderChip.Init(GD.Load<ChipDataResource>("res://_resources/ChipData/chipdata_spreadr1.tres"));
+            ChipDictionary.Add(SPREADER_CHIP_ID, spreaderChip);
 
             SwordChipBase swordChip = new SwordChipBase();
             swordChip.Init(GD.Load<ChipDataResource>("res://_resources/ChipData/chipdata_sword.tres"));

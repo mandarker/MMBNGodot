@@ -38,7 +38,7 @@ namespace MMBN.Gameplay.Chips
             Vector2 spawnPosition = playerEntity.Position + new Vector2(CANNON_VFX_OFFSET_X, CANNON_VFX_OFFSET_Y);
             _cannonVFXController = VFXGeneratorHelper.GenerateBattleVFX(VFXGeneratorHelper.MEGAMAN_CANNONSHOT_ID, spawnPosition);
 
-            _cannonVFXController.ZIndex = playerEntity.ZIndex;
+            _cannonVFXController.ZIndex = playerEntity.ZIndex + 1;
             _cannonVFXController.OnVFXFinished += _cannonVFXController.Free;
         }
 

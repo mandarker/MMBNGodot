@@ -8,7 +8,7 @@
 
 [resource]
 script = ExtResource("1_ur31y")
-_id = 0
+_id = 1
 _displayName = "Cannon"
 _attack = 40
 _chipBattleTexture = ExtResource("1_bhuys")

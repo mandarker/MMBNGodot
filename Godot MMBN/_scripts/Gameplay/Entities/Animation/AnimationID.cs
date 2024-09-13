@@ -12,7 +12,8 @@ namespace MMBN.Gameplay.Entities.Animation
 		
 		// player actions
 		public static string PLAYER_BUSTER_SHOT_ANIMATION_ID = "BusterShot";
-		public static string PLAYER_CANNON_SHOT_ANIMATION_ID = "CannonShot";
+        public static string PLAYER_SPREADER_SHOT_ANIMATION_ID = "SpreaderShot";
+        public static string PLAYER_CANNON_SHOT_ANIMATION_ID = "CannonShot";
         public static string PLAYER_SWORD_SLASH_ANIMATION_ID = "SwordSlash";
 
     }

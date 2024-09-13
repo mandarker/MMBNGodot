@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ceflo5qawewee"]
+[gd_scene load_steps=38 format=3 uid="uid://ceflo5qawewee"]
 
 [ext_resource type="Texture2D" uid="uid://cwcbraj6mu6fl" path="res://_sprites/Battle Sprites/megamanexe/megamanexeatlas.tres" id="1_6jelx"]
 [ext_resource type="Script" path="res://_scripts/Gameplay/Entities/BattleEntity.cs" id="1_tr5ct"]
@@ -139,6 +139,23 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_xlnb2"]
+resource_name = "SpreaderShot"
+length = 0.200002
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSprites/PlayerBusterShootingSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.0333333, 0.0666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 4]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vsnli"]
 _data = {
 "BusterShot": SubResource("Animation_gcw5y"),
@@ -146,6 +163,7 @@ _data = {
 "Damaged": SubResource("Animation_6h3f6"),
 "Idle": SubResource("Animation_sqrw7"),
 "Move": SubResource("Animation_vypwn"),
+"SpreaderShot": SubResource("Animation_xlnb2"),
 "SwordSlash": SubResource("Animation_1hqiu")
 }
 
@@ -286,8 +304,8 @@ _invincibilityDuration = 0.6
 
 [node name="EntityAnimationController" type="Node2D" parent="." node_paths=PackedStringArray("_animationSprites", "_animationPlayer", "_healthController")]
 script = ExtResource("7_qf3kv")
-_animationID = PackedStringArray("Idle", "Move", "BusterShot", "CannonShot", "Damaged", "SwordSlash")
-_animationSprites = [NodePath("AnimationSprites/PlayerIdleSprite"), NodePath("AnimationSprites/PlayerMovementSprite"), NodePath("AnimationSprites/PlayerBusterShootingSprite"), NodePath("AnimationSprites/PlayerCannonShootingSprite"), NodePath("AnimationSprites/PlayerDamagedSprite"), NodePath("AnimationSprites/PlayerSwordSlashSprite")]
+_animationID = PackedStringArray("Idle", "Move", "BusterShot", "CannonShot", "Damaged", "SwordSlash", "SpreaderShot")
+_animationSprites = [NodePath("AnimationSprites/PlayerIdleSprite"), NodePath("AnimationSprites/PlayerMovementSprite"), NodePath("AnimationSprites/PlayerBusterShootingSprite"), NodePath("AnimationSprites/PlayerCannonShootingSprite"), NodePath("AnimationSprites/PlayerDamagedSprite"), NodePath("AnimationSprites/PlayerSwordSlashSprite"), NodePath("AnimationSprites/PlayerBusterShootingSprite")]
 _animationPlayer = NodePath("EntityAnimationPlayer")
 _healthController = NodePath("../HealthController")
 _defaultAnimationID = "Idle"
@@ -324,6 +342,7 @@ material = SubResource("ShaderMaterial_imh3r")
 position = Vector2(3, -22)
 texture = ExtResource("10_204rh")
 hframes = 5
+frame = 4
 
 [node name="PlayerCannonShootingSprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
 visible = false
