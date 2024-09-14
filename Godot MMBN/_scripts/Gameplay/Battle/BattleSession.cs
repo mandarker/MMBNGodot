@@ -9,6 +9,7 @@ using System.Diagnostics;
 using MMBN.UI;
 using System.Linq;
 using MMBN.Utility;
+using MMBN.Gameplay.Battle.BattleStateMachine;
 
 namespace MMBN.Gameplay.Battle
 {
@@ -18,6 +19,9 @@ namespace MMBN.Gameplay.Battle
 
         [Export]
         private GeneralStateMachine _battleStateMachine;
+
+        [Export]
+        private BattleFreezeChipState _freezeChipState;
 
         [Export]
 		private BattleGrid _battleGrid;
@@ -208,6 +212,11 @@ namespace MMBN.Gameplay.Battle
             {
                 vfxController.Unpause();
             }
+        }
+
+        public void RunFreezeChip(FreezeChipBase freezeChipBase)
+        {
+            _battleStateMachine.SetState(_freezeChipState);
         }
 
 		public void Update(float deltaTime)
