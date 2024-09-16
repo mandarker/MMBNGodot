@@ -35,7 +35,7 @@ namespace MMBN.UI.Displayers
             int chipDamage = (int)freezeChipBase.ChipDataResource.Attack;
             int digits = 0;
 
-            for (int i = _chipDmgChars.Length - 1; i >= 0; i++)
+            for (int i = _chipDmgChars.Length - 1; i >= 0; i--)
             {
                 if (!(chipDamage % 10 == 0 && chipDamage / 10 == 0))
                 {

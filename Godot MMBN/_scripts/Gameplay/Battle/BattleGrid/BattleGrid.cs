@@ -32,11 +32,11 @@ namespace MMBN.Gameplay.Battle
 			return false;
 		}
 
-		public void SetHighlightAt(Vector2 tilePosition, bool highlighted)
+		public void SetHighlightAt(Vector2 tilePosition, bool highlighted, object obj)
 		{
 			if (TilePositionToArrayPosition(tilePosition, out int arrayPosition))
 			{
-				_gridTiles[arrayPosition].SetTileHighlighted(highlighted);
+				_gridTiles[arrayPosition].SetTileHighlighted(highlighted, obj);
 			}
 		}
 

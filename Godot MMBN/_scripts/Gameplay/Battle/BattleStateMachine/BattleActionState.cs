@@ -34,6 +34,12 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
         private float _battleCustomSpeed;
         private bool _wasCustomFull;
 
+        public static readonly string STATE_ID = "BATTLE_ACTION_STATE";
+        public override string GetStateID()
+        {
+            return STATE_ID;
+        }
+
         public override void EndState()
         {
             _playerController.ClearInputs(this);
@@ -66,7 +72,18 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
                 TryOpenCustom
                 );
 
-            _battleCustomAmount = 0;
+            if (!_parentStateMachine.GetPreviousStateID().Equals(BattleFreezeChipState.STATE_ID))
+            {
+                _battleCustomAmount = 0;
+                _wasCustomFull = false;
+            }
+            else
+            {
+                if (_battleCustomAmount >= 1)
+                {
+                    _wasCustomFull = true;
+                }
+            }
             _battleCustomBarUIController.ResetUI();
             _battleCustomBarUIController.SetVisible(true);
 
@@ -76,7 +93,6 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
             }
 
             _isPaused = false;
-            _wasCustomFull = false;
         }
 
         private void SetStatePaused(bool isPaused)
@@ -113,7 +129,6 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
 
         private void TryOpenCustom()
         {
-            GD.Print("what");
             if (_battleCustomAmount >= 1)
             {
                 _parentStateMachine.SetState(_customState);

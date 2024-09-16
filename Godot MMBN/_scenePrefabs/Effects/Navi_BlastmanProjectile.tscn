@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://7atwvlyxo7vi"]
+
+[ext_resource type="Script" path="res://_scripts/VFX/AnimatedVFXController.cs" id="1_hglk6"]
+[ext_resource type="Texture2D" uid="uid://dtw1ap1ashxaa" path="res://_sprites/Battle Sprites/effects/NaviChips/navichips_blastman_projectile.png" id="2_sxmln"]
+
+[sub_resource type="Animation" id="Animation_0yobd"]
+resource_name = "NaviBlastmanProjectile"
+length = 0.150002
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NaviBlastmanProjectileSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7vmcs"]
+_data = {
+"NaviBlastmanProjectile": SubResource("Animation_0yobd")
+}
+
+[node name="NaviBlastmanProjectile" type="Node2D" node_paths=PackedStringArray("_animationPlayer")]
+script = ExtResource("1_hglk6")
+_animationIDs = PackedStringArray("NaviBlastmanProjectile")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="NaviBlastmanProjectileSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_sxmln")
+hframes = 3
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7vmcs")
+}
+autoplay = "NaviBlastmanProjectile"

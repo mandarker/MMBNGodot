@@ -13,5 +13,7 @@ namespace MMBN.Gameplay.Chips
 
             Game.Instance.BattleSession.RunFreezeChip(this);
         }
+
+        public abstract void BeforeRunChip();
     }
 }

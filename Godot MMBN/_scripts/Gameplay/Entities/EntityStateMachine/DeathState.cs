@@ -37,6 +37,8 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 			_isPaused = false;
 			_animationController.SetAnimationPaused(true);
 
+            _currentEntity.SetDead();
+
 			_delayedExplosionHandlers = new List<DelayedEventHandler>();
 			_explosionVFX = new List<AnimatedVFXController>();
 

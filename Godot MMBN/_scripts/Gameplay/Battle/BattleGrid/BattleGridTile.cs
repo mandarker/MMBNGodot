@@ -14,6 +14,8 @@ public sealed class BattleGridTile
 
 	private HashSet<BattleEntity> _entities;
 
+    private HashSet<object> _highlightHashset;
+
 	private Node2D _node;
 
 	public BattleGridTile(Node2D node)
@@ -22,6 +24,8 @@ public sealed class BattleGridTile
 		_isPlayerTile = false;
 
 		_entities = new HashSet<BattleEntity>();
+
+        _highlightHashset = new HashSet<object>();
 	}
 
 	public Vector2 GetWorldPosition()
@@ -34,9 +38,21 @@ public sealed class BattleGridTile
 		_isPlayerTile = isPlayerTile;
 	}
 
-	public void SetTileHighlighted(bool highlighted)
+	public void SetTileHighlighted(bool highlighted, object obj)
 	{
-		_node.GetChild<CanvasItem>(0).Visible = highlighted;
+        if (highlighted)
+        {
+            _highlightHashset.Add(obj);
+        }
+        else
+        {
+            if (_highlightHashset.Contains(obj))
+            {
+                _highlightHashset.Remove(obj);
+            }
+        }
+
+        _node.GetChild<CanvasItem>(0).Visible = _highlightHashset.Count > 0;
 	}
 
 	public bool AddEntity(BattleEntity entity)

@@ -19,6 +19,10 @@ namespace MMBN.VFX
         public static readonly string MEGAMAN_SPREADERSHOT_ID = "SpreaderShot";
         public static readonly string MEGAMAN_SPREADERHIT_ID = "SpreaderHit";
 
+        public static readonly string NAVI_BLASTMANSPAWN_ID = "Navi_BlastmanSpawn";
+        public static readonly string NAVI_BLASTMANPROJECTILE_ID = "Navi_BlastmanProjectile";
+        public static readonly string NAVI_BLASTMANHIT_ID = "Navi_BlastmanHit";
+
         public static AnimatedVFXController GenerateVFX(string vfxID, Vector2 position)
 		{
 			PackedScene entityPackedScene = GD.Load<PackedScene>(VFXPath + vfxID + ".tscn");
@@ -35,6 +39,12 @@ namespace MMBN.VFX
             Game.Instance.BattleSession.SubscribeVFXController(vfxController);
 
             return vfxController;
+        }
+
+        public static void FreeBattleVFX(AnimatedVFXController vfxController)
+        {
+            Game.Instance.BattleSession.UnsubscribeVFXController(vfxController);
+            vfxController.Free();
         }
 	}
 }

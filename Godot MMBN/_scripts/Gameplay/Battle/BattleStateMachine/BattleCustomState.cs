@@ -24,6 +24,13 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
 
         private const int MAXIMUM_CUSTOM_CHIPS = 5;
 
+
+        public static readonly string STATE_ID = "BATTLE_CUSTOM_STATE";
+        public override string GetStateID()
+        {
+            return STATE_ID;
+        }
+
         public override void EndState()
         {
             _battleCustomScreenUIController.CleanUpUI();

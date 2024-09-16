@@ -11,6 +11,8 @@ namespace MMBN.Utility
         [Export]
         private GeneralState _currentState;
 
+        private GeneralState _previousState;
+
         public override void _Ready()
         {
             _currentState.StartState();
@@ -34,9 +36,20 @@ namespace MMBN.Utility
             _isPaused = false;
         }
 
+        public string GetCurrentStateID()
+        {
+            return _currentState.GetStateID();
+        }
+
+        public string GetPreviousStateID()
+        {
+            return _previousState.GetStateID();
+        }
+
         public void SetState(GeneralState state)
         {
             _currentState.EndState();
+            _previousState = _currentState;
             _currentState = state;
             _currentState.StartState();
         }

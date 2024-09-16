@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfthlleloan1u"]
+
+[ext_resource type="Script" path="res://_scripts/VFX/AnimatedVFXController.cs" id="1_n06hk"]
+[ext_resource type="Texture2D" uid="uid://dr86eutmit1v2" path="res://_sprites/Battle Sprites/effects/NaviChips/navichips_blastman_spawn_atlas.png" id="2_8tjts"]
+
+[sub_resource type="Animation" id="Animation_q467u"]
+resource_name = "NaviBlastmanSpawn"
+length = 3.05001
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NaviBlastmanSpawnSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.500001, 0.533334, 0.550001, 1.08334, 1.16667, 1.43334, 1.48334, 1.53334, 1.58334, 1.63334, 1.68334, 1.73334, 1.78334, 1.83334, 1.88334, 1.93334, 1.98334, 2.03334, 2.08334, 2.13334, 2.18334, 2.23334, 2.28334, 2.33334, 2.38334, 2.43334, 2.46667, 2.48334, 2.51667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 2, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NaviBlastmanSpawnSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.500001, 0.650001, 0.666668, 0.750001, 0.766668, 0.850001, 0.866668, 0.950002, 0.966668, 1.03334, 1.05, 1.06667, 1.08334, 1.16667, 1.2, 1.21667, 1.43334, 1.46667, 1.48334, 1.51667, 1.53334, 1.56667, 1.58334, 1.61667, 1.63334, 1.66667, 1.68334, 1.71667, 1.73334, 1.76667, 1.78334, 1.81667, 1.83334, 1.86667, 1.88334, 1.91667, 1.93334, 1.96667, 1.98334, 2.01667, 2.03334, 2.06667, 2.08334, 2.11667, 2.13334, 2.16667, 2.18334, 2.21667, 2.23334, 2.26667, 2.28334, 2.31667, 2.33334, 2.36667, 2.38334, 2.41667, 2.43334, 2.46667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -1), Vector2(0, -1), Vector2(0, 0), Vector2(0, 0), Vector2(0, -1), Vector2(0, -1), Vector2(0, 0), Vector2(0, 0), Vector2(0, -1), Vector2(0, -1), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 1), Vector2(0, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("NaviBlastmanSpawnSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.500001, 2.56667, 3.01667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bmkvm"]
+_data = {
+"NaviBlastmanSpawn": SubResource("Animation_q467u")
+}
+
+[node name="NaviBlastmanSpawn" type="Node2D" node_paths=PackedStringArray("_animationPlayer")]
+script = ExtResource("1_n06hk")
+_animationIDs = PackedStringArray("NaviBlastmanSpawn")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bmkvm")
+}
+
+[node name="NaviBlastmanSpawnSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_8tjts")
+hframes = 7

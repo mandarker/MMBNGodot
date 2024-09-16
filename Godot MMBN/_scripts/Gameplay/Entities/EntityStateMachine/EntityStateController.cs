@@ -28,7 +28,7 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
         {
 			_isStateMachinePaused = new LockedBoolean();
 
-			_currentEntity.HealthController.OnHealthReachedZero += () => SetState(_deathState);
+			_currentEntity.HealthController.OnHealthReachedZero += OnHealthReachedZero;
 
             foreach (EntityState state in _states)
 			{
@@ -76,5 +76,15 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
             if (!_isStateMachinePaused.IsLocked)
 			    _currentState.ContinueState();
 		}
+
+        private void OnHealthReachedZero()
+        {
+            Game.Instance.BattleSession.QueueDeath(_currentEntity);
+        }
+
+        public void SetDeathState()
+        {
+            SetState(_deathState);
+        }
     }
 }

@@ -12,6 +12,13 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
         [Export]
         private GeneralState _nextState;
 
+
+        public static readonly string STATE_ID = "BATTLE_BEGIN_STATE";
+        public override string GetStateID()
+        {
+            return STATE_ID;
+        }
+
         public override void EndState()
         {
         }

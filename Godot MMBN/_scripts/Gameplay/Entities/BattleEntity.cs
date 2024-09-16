@@ -1,5 +1,6 @@
 using Godot;
 using MMBN.Gameplay.Battle;
+using MMBN.Gameplay.Battle.BattleStateMachine;
 using MMBN.Gameplay.Entities.Animation;
 using MMBN.Gameplay.Entities.EntityStateMachine;
 using System;
@@ -43,7 +44,21 @@ namespace MMBN.Gameplay.Entities
             _healthController?.Init(this);
 
             _healthController.OnHealthReachedZero += () => _interactable = false;
-            _healthController.OnDamageDealt += () => _animationController.SetSpriteWhiteDuration(EntityGlobalConstants.ENTITY_HIT_FLASH_DURATION);
+            _healthController.OnDamageDealt += OnDamageDealt;
 		}
+
+        private void OnDamageDealt()
+        {
+            if (!Game.Instance.BattleSession.GetCurrentStateID().Equals(BattleFreezeChipState.STATE_ID))
+            {
+                _animationController.SetSpriteWhiteDuration(EntityGlobalConstants.ENTITY_HIT_FLASH_DURATION);
+            }
+        }
+
+        public void SetDead()
+        {
+            _interactable = false;
+            _animationController.SetSpriteWhite(true);
+        }
 	}
 }

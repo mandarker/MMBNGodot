@@ -8,6 +8,7 @@ namespace MMBN.Utility
         [Export]
         protected GeneralStateMachine _parentStateMachine;
 
+        public abstract string GetStateID();
         public abstract void StartState();
         public abstract void UpdateState(float deltaTime);
         public abstract void EndState();

@@ -28,6 +28,13 @@ namespace MMBN.Gameplay.Battle.BattleStateMachine
         private int _entityCounter;
         private List<BattleEntity> _enemyEntities;
 
+
+        public static readonly string STATE_ID = "BATTLE_SPAWNING_STATE";
+        public override string GetStateID()
+        {
+            return STATE_ID;
+        }
+
         public override void EndState()
         {
             

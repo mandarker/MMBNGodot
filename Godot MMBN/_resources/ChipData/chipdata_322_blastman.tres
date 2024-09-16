@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://tnf8m5vji3rx"]
+
+[ext_resource type="AudioStream" uid="uid://dfdrchqg8txas" path="res://_sfx/Battle/_general/Meteor HQ.ogg" id="1_h73it"]
+[ext_resource type="AudioStream" uid="uid://bgodq461wb15m" path="res://_sfx/Battle/_general/2- Damage.wav" id="2_q2kds"]
+[ext_resource type="Texture2D" uid="uid://cd7yfhfvhhalf" path="res://_sprites/Battle Sprites/chips/battlesprites_chips_navi.png" id="3_fnsm6"]
+[ext_resource type="AudioStream" uid="uid://d2fc4webwtth2" path="res://_sfx/Battle/_general/appear HQ.ogg" id="3_hyhpa"]
+[ext_resource type="Texture2D" uid="uid://d3srymksavjpn" path="res://_sprites/Battle Sprites/chipsDescSprites/battlesprites_chipDesc_blastman.png" id="4_jpl7f"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Chips/ChipDataResource.cs" id="5_owcae"]
+
+[resource]
+script = ExtResource("5_owcae")
+_id = 322
+_displayName = "BlastMan"
+_attack = 120
+_chipBattleTexture = ExtResource("3_fnsm6")
+_chipDescriptionTexture = ExtResource("4_jpl7f")
+_damageType = 0
+_audioStreams = Array[AudioStream]([ExtResource("1_h73it"), ExtResource("2_q2kds"), ExtResource("3_hyhpa")])
+_audioOffsets = PackedFloat32Array(1.43, 0, 0.5)

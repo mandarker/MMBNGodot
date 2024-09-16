@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dfdrchqg8txas"
+path="res://.godot/imported/Meteor HQ.ogg-f60e86ad0b98cb7261add7ba2ac0d782.oggvorbisstr"
+
+[deps]
+
+source_file="res://_sfx/Battle/_general/Meteor HQ.ogg"
+dest_files=["res://.godot/imported/Meteor HQ.ogg-f60e86ad0b98cb7261add7ba2ac0d782.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

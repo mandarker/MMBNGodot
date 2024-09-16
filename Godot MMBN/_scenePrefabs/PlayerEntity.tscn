@@ -335,6 +335,7 @@ material = SubResource("ShaderMaterial_uvuxi")
 position = Vector2(0, -25)
 texture = ExtResource("8_j2ie2")
 hframes = 4
+frame = 3
 
 [node name="PlayerBusterShootingSprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
 visible = false
@@ -342,7 +343,6 @@ material = SubResource("ShaderMaterial_imh3r")
 position = Vector2(3, -22)
 texture = ExtResource("10_204rh")
 hframes = 5
-frame = 4
 
 [node name="PlayerCannonShootingSprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
 visible = false

@@ -70,7 +70,7 @@ namespace MMBN.Gameplay.Entities.AttackBehaviours
 			
 			if (_removeEntity)
 			{
-				Game.Instance.BattleSession.UnhighlightGridTile(_currentEntity.MovementController.TilePosition);
+				Game.Instance.BattleSession.UnhighlightGridTile(_currentEntity.MovementController.TilePosition, _currentEntity);
 				Game.Instance.BattleSession.RemoveEntity(_currentEntity);
 				_currentEntity.Free();
 			}
@@ -84,7 +84,7 @@ namespace MMBN.Gameplay.Entities.AttackBehaviours
 
 				BattleEntity waveEntity = BattleEntityGeneratorHelper.GenerateEntity(BattleEntityGeneratorHelper.MettaurWaveEntityID);
 				Game.Instance.BattleSession.SpawnEntity(waveEntity, spawnPosition);
-				Game.Instance.BattleSession.HighlightGridTile(spawnPosition);
+				Game.Instance.BattleSession.HighlightGridTile(spawnPosition, waveEntity);
 			}
 		}
     }

@@ -40,13 +40,11 @@ _healthController = NodePath("HealthController")
 _movementController = NodePath("MovementController")
 _stateMachine = NodePath("EntityStateController")
 _animationController = NodePath("EntityAnimationController")
-_interactable = null
 _entityType = 2
 
 [node name="HealthController" type="Node" parent="." node_paths=PackedStringArray("_onDamageDealtModifiers")]
 script = ExtResource("2_j143j")
 _health = 100000
-_invincibleOnDamage = null
 _onDamageDealtModifiers = []
 
 [node name="MovementController" type="Node" parent="."]

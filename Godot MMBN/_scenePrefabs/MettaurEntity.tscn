@@ -93,7 +93,7 @@ _entityType = 2
 
 [node name="HealthController" type="Node" parent="." node_paths=PackedStringArray("_onDamageDealtModifiers")]
 script = ExtResource("3_n4dio")
-_health = 100
+_health = 500
 _onDamageDealtModifiers = []
 
 [node name="MovementController" type="Node" parent="."]

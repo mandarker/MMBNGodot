@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://uee3ifgllem1"]
+
+[ext_resource type="Script" path="res://_scripts/VFX/AnimatedVFXController.cs" id="1_m2dan"]
+[ext_resource type="Texture2D" uid="uid://vg4a6k7qfx8v" path="res://_sprites/Battle Sprites/effects/NaviChips/navichips_blastman_hit_atlas.png" id="2_uiy6o"]
+
+[sub_resource type="Animation" id="Animation_kb2r2"]
+resource_name = "NaviBlastmanHit"
+length = 0.250002
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NaviBlastmanHitSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.116667, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ggmr0"]
+_data = {
+"NaviBlastmanHit": SubResource("Animation_kb2r2")
+}
+
+[node name="NaviBlastmanHit" type="Node2D" node_paths=PackedStringArray("_animationPlayer")]
+script = ExtResource("1_m2dan")
+_animationIDs = PackedStringArray("NaviBlastmanHit")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="NaviBlastmanHitSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_uiy6o")
+hframes = 6
+frame = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ggmr0")
+}

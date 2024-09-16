@@ -32,6 +32,7 @@ namespace MMBN.Gameplay.Battle
 		private List<BattleEntity> _entities;
 		private List<BattleEntity> _queuedAddEntities;
 		private List<BattleEntity> _queuedRemoveEntities;
+        private List<BattleEntity> _queuedDeathEntities;
 
 		private MettaurGroupedBehaviour _mettaurGroupedBehaviour;
 
@@ -80,6 +81,7 @@ namespace MMBN.Gameplay.Battle
             _entities = new List<BattleEntity>();
 			_queuedAddEntities = new List<BattleEntity>();
 			_queuedRemoveEntities = new List<BattleEntity>();
+            _queuedDeathEntities = new List<BattleEntity>();
 
 			_mettaurGroupedBehaviour = new MettaurGroupedBehaviour();
 
@@ -173,14 +175,14 @@ namespace MMBN.Gameplay.Battle
 			return entities;
 		}
 
-		public void HighlightGridTile(Vector2 gridPosition)
+		public void HighlightGridTile(Vector2 gridPosition, object obj)
 		{
-			_battleGrid.SetHighlightAt(gridPosition, true);
+			_battleGrid.SetHighlightAt(gridPosition, true, obj);
 		}
 
-		public void UnhighlightGridTile(Vector2 gridPosition)
+		public void UnhighlightGridTile(Vector2 gridPosition, object obj)
 		{
-			_battleGrid.SetHighlightAt(gridPosition, false);
+			_battleGrid.SetHighlightAt(gridPosition, false, obj);
 		}
 
         public void SubscribeVFXController(AnimatedVFXController animatedVFXController)
@@ -216,11 +218,32 @@ namespace MMBN.Gameplay.Battle
 
         public void RunFreezeChip(FreezeChipBase freezeChipBase)
         {
+            _freezeChipState.SetFreezeChip(freezeChipBase);
             _battleStateMachine.SetState(_freezeChipState);
+        }
+
+        public void QueueDeath(BattleEntity enemyEntity)
+        {
+            _queuedDeathEntities.Add(enemyEntity);
+        }
+
+        public string GetCurrentStateID()
+        {
+            return _battleStateMachine.GetCurrentStateID();
         }
 
 		public void Update(float deltaTime)
 		{
+            if (!_battleStateMachine.GetCurrentStateID().Equals(_freezeChipState.GetStateID()))
+            {
+                foreach(var entity in _queuedDeathEntities)
+                {
+                    entity.StateMachine.SetDeathState();
+                }
+
+                _queuedDeathEntities.Clear();
+            }
+
             _battleStateMachine.Update(deltaTime);
 		}
 	}
