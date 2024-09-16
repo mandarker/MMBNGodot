@@ -108,6 +108,7 @@ namespace MMBN.UI
                 }
             }
 
+            OnCursorMoved = null;
             OnCursorMoved += () => Game.Instance.SFXManager.PlaySFX(_customMovedAudioStream);
 
             _okUIElement.OnSelect = () => {
