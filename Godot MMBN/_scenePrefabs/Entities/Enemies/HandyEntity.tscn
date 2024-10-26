@@ -1,0 +1,257 @@
+[gd_scene load_steps=23 format=3 uid="uid://chvm4vjhx861"]
+
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/BattleEntity.cs" id="1_n11ri"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/HealthController.cs" id="1_twcq4"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/MovementControllers/GridMovementController.cs" id="2_v2dcg"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/EntityStateController.cs" id="3_0ay7p"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/IdleState.cs" id="4_idjgi"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/AttackState.cs" id="5_36nqb"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/DeathState.cs" id="6_y1u5k"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/AttackBehaviours/SpawnBombAttackBehaviour.cs" id="7_rudnk"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/Animation/EntityAnimationController.cs" id="7_tu75k"]
+[ext_resource type="Shader" path="res://_shaders/colorMultiplyShader.gdshader" id="8_uxc01"]
+[ext_resource type="Texture2D" uid="uid://lkvvq0l7v2b2" path="res://_sprites/Battle Sprites/handy/handy_bombdrop_sprites.png" id="9_ktgkv"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityHealthDisplayer.cs" id="10_owrcl"]
+[ext_resource type="Texture2D" uid="uid://byxmem8ph5m37" path="res://_sprites/UI/battle_hp_outline.png" id="11_k2u6c"]
+[ext_resource type="AudioStream" uid="uid://bstcwc23qwvok" path="res://_sfx/Battle/_general/explode HQ.ogg" id="12_36n1n"]
+
+[sub_resource type="Animation" id="Animation_x8amn"]
+resource_name = "Idle"
+length = 0.0166683
+step = 0.0166667
+
+[sub_resource type="Animation" id="Animation_p2cpl"]
+resource_name = "Attack"
+length = 1.2
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSprites/Attack Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.0833333, 0.15, 0.216667, 0.266667, 0.316667, 0.466667, 0.533333, 0.6, 0.666667, 0.716667, 0.85, 0.916667, 0.983333, 1.03333, 1.08333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 5, 7, 8, 9, 10, 11, 12, 13, 14, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationSprites/Attack Sprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.366667, 0.383333, 0.416667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationSprites/Attack Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.833333, 0.85, 0.9, 0.916667, 1.11667, 1.13333, 1.18333, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-2, 0), Vector2(-2, 0), Vector2(-3, 0), Vector2(-3, 0), Vector2(-2, 0), Vector2(-2, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fscbs"]
+resource_name = "BombOut"
+length = 0.183335
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSprites/BombOut Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.1, 0.183333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 15, 0, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_al25k"]
+_data = {
+"Attack": SubResource("Animation_p2cpl"),
+"BombOut": SubResource("Animation_fscbs"),
+"Idle": SubResource("Animation_x8amn")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vjr26"]
+resource_local_to_scene = true
+shader = ExtResource("8_uxc01")
+shader_parameter/_col = Vector4(1, 1, 1, 1)
+shader_parameter/_colTint = Vector4(0, 0, 1, 1)
+shader_parameter/_white = null
+shader_parameter/_greyscale = null
+shader_parameter/_transparency = 1.0
+shader_parameter/_flash = false
+shader_parameter/_tintStrength = 0.0
+shader_parameter/_pixelationStrength = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e3jgq"]
+resource_local_to_scene = true
+shader = ExtResource("8_uxc01")
+shader_parameter/_col = Vector4(1, 1, 1, 1)
+shader_parameter/_colTint = null
+shader_parameter/_white = null
+shader_parameter/_greyscale = null
+shader_parameter/_transparency = 1.0
+shader_parameter/_flash = null
+shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2t7mn"]
+resource_local_to_scene = true
+shader = ExtResource("8_uxc01")
+shader_parameter/_col = Vector4(1, 1, 1, 1)
+shader_parameter/_colTint = null
+shader_parameter/_white = null
+shader_parameter/_greyscale = null
+shader_parameter/_transparency = 1.0
+shader_parameter/_flash = null
+shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mb78y"]
+resource_local_to_scene = true
+shader = ExtResource("8_uxc01")
+shader_parameter/_col = Vector4(1, 1, 1, 1)
+shader_parameter/_colTint = null
+shader_parameter/_white = false
+shader_parameter/_greyscale = null
+shader_parameter/_transparency = 1.0
+shader_parameter/_flash = null
+shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
+
+[node name="Handy" type="Node2D" node_paths=PackedStringArray("_healthController", "_movementController", "_stateMachine", "_animationController")]
+script = ExtResource("1_n11ri")
+_battleEntityID = "_handy"
+_healthController = NodePath("HealthController")
+_movementController = NodePath("MovementController")
+_stateMachine = NodePath("EntityStateController")
+_animationController = NodePath("EntityAnimationController")
+_interactable = true
+_entityType = 2
+
+[node name="HealthController" type="Node" parent="." node_paths=PackedStringArray("_onDamageDealtModifiers")]
+script = ExtResource("1_twcq4")
+_health = 500
+_onDamageDealtModifiers = []
+
+[node name="MovementController" type="Node" parent="."]
+script = ExtResource("2_v2dcg")
+
+[node name="EntityStateController" type="Node" parent="." node_paths=PackedStringArray("_states", "_deathState", "_currentEntity")]
+script = ExtResource("3_0ay7p")
+_states = [NodePath("IdleState"), NodePath("AttackState")]
+_deathState = NodePath("DeathState")
+_currentEntity = NodePath("..")
+
+[node name="IdleState" type="Node" parent="EntityStateController" node_paths=PackedStringArray("_animationController", "nextState")]
+script = ExtResource("4_idjgi")
+_idleTime = 0.33
+_animationController = NodePath("../../EntityAnimationController")
+nextState = NodePath("../AttackState")
+
+[node name="AttackState" type="Node" parent="EntityStateController" node_paths=PackedStringArray("_attackBehaviours")]
+script = ExtResource("5_36nqb")
+_attackBehaviours = [NodePath("SpawnBombAttackBehaviour")]
+
+[node name="SpawnBombAttackBehaviour" type="Node" parent="EntityStateController/AttackState" node_paths=PackedStringArray("_idleState", "_animatorController", "_currentEntity")]
+script = ExtResource("7_rudnk")
+_attackDelay = 1.083
+_intangibleDelay = 0.26
+_nonintangibleDelay = 0.53
+_moveDelay = 0.38
+_idleState = NodePath("../../IdleState")
+_animatorController = NodePath("../../../EntityAnimationController")
+_currentEntity = NodePath("../../..")
+
+[node name="DeathState" type="Node" parent="EntityStateController" node_paths=PackedStringArray("_animationController", "_currentEntity", "_deathAudioStreamPlayer")]
+script = ExtResource("6_y1u5k")
+_animationController = NodePath("../../EntityAnimationController")
+_currentEntity = NodePath("../..")
+_deathAudioStreamPlayer = NodePath("../../SFX/DeathAudioStreamPlayer")
+
+[node name="EntityAnimationController" type="Node2D" parent="." node_paths=PackedStringArray("_animationSprites", "_animationPlayer", "_healthController")]
+script = ExtResource("7_tu75k")
+_animationID = PackedStringArray("Idle", "Attack", "BombOut")
+_animationSprites = [NodePath("AnimationSprites/Idle Sprite"), NodePath("AnimationSprites/Attack Sprite"), NodePath("AnimationSprites/BombOut Sprite")]
+_animationPlayer = NodePath("AnimationPlayer")
+_healthController = NodePath("../HealthController")
+_defaultAnimationID = "Idle"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EntityAnimationController"]
+libraries = {
+"": SubResource("AnimationLibrary_al25k")
+}
+
+[node name="AnimationSprites" type="Node2D" parent="EntityAnimationController"]
+
+[node name="Idle Sprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
+material = SubResource("ShaderMaterial_vjr26")
+texture = ExtResource("9_ktgkv")
+flip_h = true
+hframes = 16
+
+[node name="Attack Sprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
+visible = false
+material = SubResource("ShaderMaterial_e3jgq")
+texture = ExtResource("9_ktgkv")
+flip_h = true
+hframes = 16
+frame = 6
+
+[node name="BombOut Sprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
+visible = false
+material = SubResource("ShaderMaterial_2t7mn")
+texture = ExtResource("9_ktgkv")
+flip_h = true
+hframes = 16
+
+[node name="HealthDisplayer" type="Node2D" parent="." node_paths=PackedStringArray("_entityHealthController", "_digitSprites")]
+script = ExtResource("10_owrcl")
+_entityHealthController = NodePath("../HealthController")
+_digitSprites = [NodePath("Digit1"), NodePath("Digit2"), NodePath("Digit3"), NodePath("Digit4")]
+_damageColor = Color(1, 0.486275, 0.419608, 1)
+
+[node name="Digit1" type="Sprite2D" parent="HealthDisplayer"]
+material = SubResource("ShaderMaterial_mb78y")
+position = Vector2(0, 5)
+texture = ExtResource("11_k2u6c")
+hframes = 10
+
+[node name="Digit2" type="Sprite2D" parent="HealthDisplayer"]
+material = SubResource("ShaderMaterial_mb78y")
+position = Vector2(0, 5)
+texture = ExtResource("11_k2u6c")
+hframes = 10
+
+[node name="Digit3" type="Sprite2D" parent="HealthDisplayer"]
+material = SubResource("ShaderMaterial_mb78y")
+position = Vector2(0, 5)
+texture = ExtResource("11_k2u6c")
+hframes = 10
+
+[node name="Digit4" type="Sprite2D" parent="HealthDisplayer"]
+material = SubResource("ShaderMaterial_mb78y")
+position = Vector2(0, 5)
+texture = ExtResource("11_k2u6c")
+hframes = 10
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="DeathAudioStreamPlayer" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("12_36n1n")
+volume_db = -13.805

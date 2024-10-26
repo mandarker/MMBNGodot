@@ -1,0 +1,381 @@
+[gd_scene load_steps=38 format=3 uid="uid://ceflo5qawewee"]
+
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/BattleEntity.cs" id="1_4ilsv"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/HealthController.cs" id="2_sldia"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/OnDamageDealtModifiers/OnDamageDealtInvincibleModifier.cs" id="3_w88lx"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/MovementControllers/GridMovementController.cs" id="4_hjba1"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/MovementModifiers/AllyTileBoundMovementModifier.cs" id="5_24eja"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/EntityStateController.cs" id="6_tnyjj"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/PlayerMovementState.cs" id="7_fbtif"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/AttackState.cs" id="8_28fnf"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/AttackBehaviours/BusterAttackBehaviour.cs" id="9_b0q4h"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/AttackBehaviours/ChipAttackBehaviour.cs" id="10_los38"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/DamagedState.cs" id="11_5l0mj"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/Animation/EntityAnimationController.cs" id="12_24kwp"]
+[ext_resource type="Shader" path="res://_shaders/colorMultiplyShader.gdshader" id="13_vh0cn"]
+[ext_resource type="Texture2D" uid="uid://cwcbraj6mu6fl" path="res://_sprites/Battle Sprites/megamanexe/megamanexeatlas.tres" id="14_xt46w"]
+[ext_resource type="Texture2D" uid="uid://but03gjxktlmw" path="res://_sprites/Battle Sprites/megamanexe/megamanexe_damaged_atlas.png" id="15_lytyj"]
+[ext_resource type="Texture2D" uid="uid://b4smnjyetsyiw" path="res://_sprites/Battle Sprites/megamanexe/megamanexe_movement_atlas.png" id="16_av56g"]
+[ext_resource type="Texture2D" uid="uid://bjpeaj4750edd" path="res://_sprites/Battle Sprites/megamanexe/megamanexe_bustershot_atlas.png" id="17_85kh3"]
+[ext_resource type="Texture2D" uid="uid://c7wdgu7ibkpq8" path="res://_sprites/Battle Sprites/megamanexe/megamanexe_cannonshot_atlas.png" id="18_gi1fg"]
+[ext_resource type="Texture2D" uid="uid://cwru055vmgtlp" path="res://_sprites/Battle Sprites/megamanexe/megamanexe_swordslash_atlas.png" id="19_51uj4"]
+[ext_resource type="AudioStream" uid="uid://uk0vxlx454su" path="res://_sfx/Battle/Buster/BusterCharging HQ.ogg" id="20_170rh"]
+[ext_resource type="AudioStream" uid="uid://cwr0cwynje3sp" path="res://_sfx/Battle/Buster/BusterCharged HQ.ogg" id="21_2ka7d"]
+[ext_resource type="AudioStream" uid="uid://dhwlr3x5cvamv" path="res://_sfx/Battle/Megaman/Hurt HQ.ogg" id="22_rrmbe"]
+[ext_resource type="AudioStream" uid="uid://3b3u32iqpony" path="res://_sfx/Battle/Buster/0- Buster.wav" id="23_gjo4c"]
+[ext_resource type="AudioStream" uid="uid://q7lqetkesgc6" path="res://_sfx/Battle/Buster/1- Buster Hit.wav" id="24_qcquu"]
+
+[sub_resource type="Animation" id="Animation_gcw5y"]
+resource_name = "BusterShot"
+length = 0.233335
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSprites/PlayerBusterShootingSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.0500001, 0.0833335, 0.116667, 0.233334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 0]
+}
+
+[sub_resource type="Animation" id="Animation_n58cq"]
+resource_name = "CannonShot"
+length = 0.550002
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSprites/PlayerCannonShootingSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0833333, 0.216667, 0.283333, 0.5, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationSprites/PlayerCannonShootingSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.25, 0.266667, 0.283333, 0.3, 0.483333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(6, -18), Vector2(6, -18), Vector2(3, -18), Vector2(2, -18), Vector2(1, -18), Vector2(0, -18), Vector2(0, -18), Vector2(6, -18)]
+}
+
+[sub_resource type="Animation" id="Animation_6h3f6"]
+resource_name = "Damaged"
+length = 0.333336
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSprites/PlayerDamagedSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_sqrw7"]
+resource_name = "Idle"
+length = 0.0166683
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSprites/PlayerIdleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_vypwn"]
+resource_name = "Move"
+length = 0.0500018
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSprites/PlayerMovementSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.0333333, 0.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_xlnb2"]
+resource_name = "SpreaderShot"
+length = 0.200002
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSprites/PlayerBusterShootingSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.0333333, 0.0666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 4]
+}
+
+[sub_resource type="Animation" id="Animation_1hqiu"]
+resource_name = "SwordSlash"
+length = 0.450002
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSprites/PlayerSwordSlashSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vsnli"]
+_data = {
+"BusterShot": SubResource("Animation_gcw5y"),
+"CannonShot": SubResource("Animation_n58cq"),
+"Damaged": SubResource("Animation_6h3f6"),
+"Idle": SubResource("Animation_sqrw7"),
+"Move": SubResource("Animation_vypwn"),
+"SpreaderShot": SubResource("Animation_xlnb2"),
+"SwordSlash": SubResource("Animation_1hqiu")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dbknm"]
+resource_local_to_scene = true
+shader = ExtResource("13_vh0cn")
+shader_parameter/_col = Vector4(1, 1, 1, 1)
+shader_parameter/_colTint = Vector4(0, 0, 1, 1)
+shader_parameter/_white = null
+shader_parameter/_greyscale = null
+shader_parameter/_transparency = 1.0
+shader_parameter/_flash = false
+shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uvuxi"]
+shader = ExtResource("13_vh0cn")
+shader_parameter/_col = Vector4(1, 1, 1, 1)
+shader_parameter/_colTint = Vector4(0, 0, 1, 1)
+shader_parameter/_white = null
+shader_parameter/_greyscale = null
+shader_parameter/_transparency = 1.0
+shader_parameter/_flash = null
+shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_imh3r"]
+shader = ExtResource("13_vh0cn")
+shader_parameter/_col = Vector4(1, 1, 1, 1)
+shader_parameter/_colTint = Vector4(0, 0, 1, 1)
+shader_parameter/_white = null
+shader_parameter/_greyscale = null
+shader_parameter/_transparency = 1.0
+shader_parameter/_flash = null
+shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1hopb"]
+shader = ExtResource("13_vh0cn")
+shader_parameter/_col = Vector4(1, 1, 1, 1)
+shader_parameter/_colTint = Vector4(0, 0, 1, 1)
+shader_parameter/_white = null
+shader_parameter/_greyscale = null
+shader_parameter/_transparency = 1.0
+shader_parameter/_flash = null
+shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g6slo"]
+shader = ExtResource("13_vh0cn")
+shader_parameter/_col = Vector4(1, 1, 1, 1)
+shader_parameter/_colTint = Vector4(0, 0, 1, 1)
+shader_parameter/_white = null
+shader_parameter/_greyscale = null
+shader_parameter/_transparency = 1.0
+shader_parameter/_flash = null
+shader_parameter/_tintStrength = null
+shader_parameter/_pixelationStrength = null
+
+[node name="PlayerEntity" type="Node2D" node_paths=PackedStringArray("_healthController", "_movementController", "_stateMachine", "_animationController")]
+z_index = 1
+script = ExtResource("1_4ilsv")
+_battleEntityID = "_player"
+_healthController = NodePath("HealthController")
+_movementController = NodePath("MovementController")
+_stateMachine = NodePath("EntityStateController")
+_animationController = NodePath("EntityAnimationController")
+_interactable = true
+_entityType = 0
+
+[node name="HealthController" type="Node" parent="." node_paths=PackedStringArray("_onDamageDealtModifiers")]
+script = ExtResource("2_sldia")
+_health = 100
+_invincibleOnDamage = true
+_onDamageDealtModifiers = [NodePath("OnDamageDealtInvincibleModifier")]
+
+[node name="OnDamageDealtInvincibleModifier" type="Node" parent="HealthController" node_paths=PackedStringArray("_healthController", "_entityStateController", "_damagedState", "_healthController")]
+script = ExtResource("3_w88lx")
+_healthController = NodePath("..")
+_entityStateController = NodePath("../../EntityStateController")
+_damagedState = NodePath("../../EntityStateController/PlayerDamagedState")
+_healthController = NodePath("..")
+
+[node name="MovementController" type="Node" parent="."]
+script = ExtResource("4_hjba1")
+
+[node name="AllyTileBoundMovementModifier" type="Node" parent="MovementController" node_paths=PackedStringArray("_currentEntity")]
+script = ExtResource("5_24eja")
+_currentEntity = NodePath("../..")
+
+[node name="EntityStateController" type="Node" parent="." node_paths=PackedStringArray("_states", "_currentEntity")]
+script = ExtResource("6_tnyjj")
+_states = [NodePath("PlayerMovementState"), NodePath("PlayerBusterShotState"), NodePath("PlayerChipAttackState"), NodePath("PlayerDamagedState")]
+_currentEntity = NodePath("..")
+
+[node name="PlayerMovementState" type="Node" parent="EntityStateController" node_paths=PackedStringArray("_movementController", "_playerAnimationController", "_busterShotState", "_chipState", "_playerEntity", "_chargingAudioStreamPlayer", "_chargedAudioStreamPlayer")]
+script = ExtResource("7_fbtif")
+_movementController = NodePath("../../MovementController")
+_playerAnimationController = NodePath("../../EntityAnimationController")
+_busterShotState = NodePath("../PlayerBusterShotState")
+_chipState = NodePath("../PlayerChipAttackState")
+_playerEntity = NodePath("../..")
+_chargingAudioStreamPlayer = NodePath("../../SFX/BusterChargingAudioStreamPlayer")
+_chargedAudioStreamPlayer = NodePath("../../SFX/BusterChargedAudioStreamPlayer")
+_movementSpeed = 0.25
+_chargeVFXDelay = 0.1
+
+[node name="PlayerBusterShotState" type="Node" parent="EntityStateController" node_paths=PackedStringArray("_attackBehaviours", "_nextState")]
+script = ExtResource("8_28fnf")
+_attackBehaviours = [NodePath("BusterAttackBehaviour")]
+_nextState = NodePath("../PlayerMovementState")
+
+[node name="BusterAttackBehaviour" type="Node" parent="EntityStateController/PlayerBusterShotState" node_paths=PackedStringArray("_busterAttackAudioStreamPlayer", "_busterHitAudioStreamPlayer", "_animatorController", "_currentEntity")]
+script = ExtResource("9_b0q4h")
+_attackSpawnDelay = 0.05
+_busterAttackPower = 3
+_busterAttackAudioStreamPlayer = NodePath("../../../SFX/BusterAttackAudioStreamPlayer")
+_busterHitAudioStreamPlayer = NodePath("../../../SFX/BusterHitAudioStreamPlayer")
+_animatorController = NodePath("../../../EntityAnimationController")
+_currentEntity = NodePath("../../..")
+
+[node name="PlayerChipAttackState" type="Node" parent="EntityStateController" node_paths=PackedStringArray("_attackBehaviours", "_nextState")]
+script = ExtResource("8_28fnf")
+_attackBehaviours = [NodePath("ChipAttackBehaviour")]
+_nextState = NodePath("../PlayerMovementState")
+
+[node name="ChipAttackBehaviour" type="Node" parent="EntityStateController/PlayerChipAttackState" node_paths=PackedStringArray("_animatorController", "_currentEntity")]
+script = ExtResource("10_los38")
+_animatorController = NodePath("../../../EntityAnimationController")
+_currentEntity = NodePath("../../..")
+
+[node name="PlayerDamagedState" type="Node" parent="EntityStateController" node_paths=PackedStringArray("_healthController", "_entityAnimationController", "_movementState", "_hurtAudioStreamPlayer")]
+script = ExtResource("11_5l0mj")
+_healthController = NodePath("../../HealthController")
+_entityAnimationController = NodePath("../../EntityAnimationController")
+_movementState = NodePath("../PlayerMovementState")
+_hurtAudioStreamPlayer = NodePath("../../SFX/HurtAudioStreamPlayer")
+_invincibilityDuration = 0.6
+
+[node name="EntityAnimationController" type="Node2D" parent="." node_paths=PackedStringArray("_animationSprites", "_animationPlayer", "_healthController")]
+script = ExtResource("12_24kwp")
+_animationID = PackedStringArray("Idle", "Move", "BusterShot", "CannonShot", "Damaged", "SwordSlash", "SpreaderShot")
+_animationSprites = [NodePath("AnimationSprites/PlayerIdleSprite"), NodePath("AnimationSprites/PlayerMovementSprite"), NodePath("AnimationSprites/PlayerBusterShootingSprite"), NodePath("AnimationSprites/PlayerCannonShootingSprite"), NodePath("AnimationSprites/PlayerDamagedSprite"), NodePath("AnimationSprites/PlayerSwordSlashSprite"), NodePath("AnimationSprites/PlayerBusterShootingSprite")]
+_animationPlayer = NodePath("EntityAnimationPlayer")
+_healthController = NodePath("../HealthController")
+_defaultAnimationID = "Idle"
+
+[node name="EntityAnimationPlayer" type="AnimationPlayer" parent="EntityAnimationController"]
+libraries = {
+"": SubResource("AnimationLibrary_vsnli")
+}
+
+[node name="AnimationSprites" type="Node2D" parent="EntityAnimationController"]
+
+[node name="PlayerIdleSprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
+material = SubResource("ShaderMaterial_dbknm")
+position = Vector2(0, -19)
+texture = ExtResource("14_xt46w")
+
+[node name="PlayerDamagedSprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
+visible = false
+material = SubResource("ShaderMaterial_dbknm")
+position = Vector2(2, -21)
+texture = ExtResource("15_lytyj")
+hframes = 3
+
+[node name="PlayerMovementSprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
+visible = false
+material = SubResource("ShaderMaterial_uvuxi")
+position = Vector2(0, -25)
+texture = ExtResource("16_av56g")
+hframes = 4
+frame = 3
+
+[node name="PlayerBusterShootingSprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
+visible = false
+material = SubResource("ShaderMaterial_imh3r")
+position = Vector2(3, -22)
+texture = ExtResource("17_85kh3")
+hframes = 5
+
+[node name="PlayerCannonShootingSprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
+visible = false
+material = SubResource("ShaderMaterial_1hopb")
+position = Vector2(0, -18)
+texture = ExtResource("18_gi1fg")
+hframes = 6
+frame = 4
+
+[node name="PlayerSwordSlashSprite" type="Sprite2D" parent="EntityAnimationController/AnimationSprites"]
+visible = false
+material = SubResource("ShaderMaterial_g6slo")
+position = Vector2(4, -19)
+texture = ExtResource("19_51uj4")
+hframes = 4
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="BusterChargingAudioStreamPlayer" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("20_170rh")
+
+[node name="BusterChargedAudioStreamPlayer" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("21_2ka7d")
+
+[node name="HurtAudioStreamPlayer" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("22_rrmbe")
+volume_db = 1.0
+
+[node name="BusterAttackAudioStreamPlayer" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("23_gjo4c")
+volume_db = -15.0
+
+[node name="BusterHitAudioStreamPlayer" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("24_qcquu")
+volume_db = -15.0

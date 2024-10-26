@@ -32,7 +32,17 @@ namespace MMBN.Gameplay.Entities
 			}
 		}
 
-		public override void UpdateMovement(float deltaTime)
+        public override void TryMovetoPosition(Vector2 position)
+        {
+            _battleGrid.MoveEntity(_entity, _tilePosition, position);
+
+            _tilePosition = position;
+
+            _node.Position = _battleGrid.TilePositionToWorldPosition(_tilePosition);
+            _entity.ZIndex = _battleGrid.GetZindex(_tilePosition);
+        }
+
+        public override void UpdateMovement(float deltaTime)
 		{
 
 		}

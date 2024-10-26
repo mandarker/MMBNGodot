@@ -59,7 +59,7 @@ namespace MMBN.Gameplay.Battle
             AddChild(_playerBattleEntity);
             _playerBattleEntity.Init(_battleGrid, new Vector2(1, 1));
 
-            BattleEntity enemyEntity = BattleEntityGeneratorHelper.GenerateEntity(BattleEntityGeneratorHelper.MettaurEntityID);
+            BattleEntity enemyEntity = BattleEntityGeneratorHelper.GenerateEntity(BattleEntityGeneratorHelper.HandyEntityID);
             AddChild(enemyEntity);
             enemyEntity.Init(_battleGrid, new Vector2(3, 0));
 

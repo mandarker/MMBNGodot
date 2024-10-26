@@ -26,6 +26,9 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
         [Export]
         private AudioStreamPlayer _deathAudioStreamPlayer;
 
+        [Export]
+        private bool _singleExplosion = false;
+
 		private bool _isPaused;
 
 		private float[] _explosionTimes = new float[]{0f, 0.3f, 0.6f};
@@ -43,6 +46,11 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
 			_explosionVFX = new List<AnimatedVFXController>();
 
 			int explosions = GD.RandRange(2, 3);
+
+            if (_singleExplosion)
+            {
+                explosions = 1;
+            }
 
 			for (int i = 0; i < explosions; ++i)
 			{

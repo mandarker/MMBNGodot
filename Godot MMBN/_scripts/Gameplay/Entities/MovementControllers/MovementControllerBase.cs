@@ -98,6 +98,8 @@ namespace MMBN.Gameplay.Entities
 
 		public abstract void TryMoveInDirection(Vector2 direction);
 
+        public abstract void TryMovetoPosition(Vector2 position);
+
         public class ModifierSorter : IComparer<MovementModifier>
         {
             public int Compare(MovementModifier x, MovementModifier y)

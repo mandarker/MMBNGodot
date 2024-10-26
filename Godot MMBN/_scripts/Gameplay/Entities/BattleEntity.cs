@@ -11,6 +11,8 @@ namespace MMBN.Gameplay.Entities
 	{
 		public enum BattleEntityType {PLAYER, NEUTRAL, ENEMY}
 
+        public Action OnEntityDeath;
+
 		[Export]
 		private string _battleEntityID;
 		public string BattleEntityID { get { return _battleEntityID; }}
@@ -25,7 +27,7 @@ namespace MMBN.Gameplay.Entities
 		private EntityAnimationController _animationController;
 		[Export]
 		private bool _interactable;
-		public bool Interactable { get { return _interactable; } }
+		public bool Interactable { get { return _interactable; } set { _interactable = value; } }
 
 		[Export]
 		protected BattleEntityType _entityType = BattleEntityType.NEUTRAL;
@@ -59,6 +61,8 @@ namespace MMBN.Gameplay.Entities
         {
             _interactable = false;
             _animationController.SetSpriteWhite(true);
+
+            OnEntityDeath?.Invoke();
         }
 	}
 }
