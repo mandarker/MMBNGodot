@@ -37,11 +37,15 @@ namespace MMBN.Gameplay.Entities.EntityStateMachine
         public override void PauseState()
         {
             _isPaused = true;
+
+            _animationController.SetAnimationPaused(_isPaused);
         }
 
         public override void ContinueState()
         {
             _isPaused = false;
+
+            _animationController.SetAnimationPaused(_isPaused);
         }
 
         public override string GetStateID()
