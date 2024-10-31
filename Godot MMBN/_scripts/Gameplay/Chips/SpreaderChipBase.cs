@@ -106,6 +106,7 @@ namespace MMBN.Gameplay.Chips
 
                             foreach (BattleEntity entity in entities)
                             {
+                                if (entity.EntityType != BattleEntity.BattleEntityType.PLAYER)
                                 entity.HealthController.DealDamage(spreaderAttackData);
                             }
                         }

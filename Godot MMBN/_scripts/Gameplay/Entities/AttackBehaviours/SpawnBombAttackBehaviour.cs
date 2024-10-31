@@ -93,7 +93,7 @@ namespace MMBN.Gameplay.Entities.AttackBehaviours
                     {
                         entity.HealthController.DealDamage(bombSpawnAttackData);
 
-                        entity.StateMachine.SetState(_idleState);
+                        _currentEntity.StateMachine.SetState(_idleState);
                     }
                 }
             }
