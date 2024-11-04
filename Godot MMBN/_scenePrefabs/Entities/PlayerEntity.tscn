@@ -1,10 +1,11 @@
-[gd_scene load_steps=38 format=3 uid="uid://ceflo5qawewee"]
+[gd_scene load_steps=39 format=3 uid="uid://ceflo5qawewee"]
 
 [ext_resource type="Script" path="res://_scripts/Gameplay/Entities/BattleEntity.cs" id="1_4ilsv"]
 [ext_resource type="Script" path="res://_scripts/Gameplay/Entities/HealthController.cs" id="2_sldia"]
 [ext_resource type="Script" path="res://_scripts/Gameplay/Entities/OnDamageDealtModifiers/OnDamageDealtInvincibleModifier.cs" id="3_w88lx"]
 [ext_resource type="Script" path="res://_scripts/Gameplay/Entities/MovementControllers/GridMovementController.cs" id="4_hjba1"]
 [ext_resource type="Script" path="res://_scripts/Gameplay/Entities/MovementModifiers/AllyTileBoundMovementModifier.cs" id="5_24eja"]
+[ext_resource type="Script" path="res://_scripts/Gameplay/Entities/MovementModifiers/EntityBlockMovementModifier.cs" id="6_ecoxw"]
 [ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/EntityStateController.cs" id="6_tnyjj"]
 [ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/PlayerMovementState.cs" id="7_fbtif"]
 [ext_resource type="Script" path="res://_scripts/Gameplay/Entities/EntityStateMachine/AttackState.cs" id="8_28fnf"]
@@ -252,6 +253,10 @@ script = ExtResource("4_hjba1")
 
 [node name="AllyTileBoundMovementModifier" type="Node" parent="MovementController" node_paths=PackedStringArray("_currentEntity")]
 script = ExtResource("5_24eja")
+_currentEntity = NodePath("../..")
+
+[node name="EntityBlockMovementModifier" type="Node" parent="MovementController" node_paths=PackedStringArray("_currentEntity")]
+script = ExtResource("6_ecoxw")
 _currentEntity = NodePath("../..")
 
 [node name="EntityStateController" type="Node" parent="." node_paths=PackedStringArray("_states", "_currentEntity")]
